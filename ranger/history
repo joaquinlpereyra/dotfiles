@@ -1,0 +1,6 @@
+search .config
+
+move
+paste
+delete 
+wq

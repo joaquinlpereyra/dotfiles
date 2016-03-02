@@ -1,0 +1,15 @@
+#!/bin/bash
+
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+#vim
+ln -s ${BASEDIR}/vim/.vim ~/.vim
+ln -s ${BASEDIR}/vim/.vimrc ~/.vimrc
+
+#bash
+ln -s ${BASEDIR}/bash/.bashrc ~/.bashrc
+ln -s ${BASEDIR}/bash/.dircolors ~/.dircolors
+ln -s ${BASEDIR}/bash/.xinitrc ~/.xinitrc
+
+#ranger
+ln -s ${BASEDIR}/ranger/ ~/.config/ranger
