@@ -58,7 +58,7 @@ exec flexget daemon start -d
 exec transmission-gtk -m
 exec dropbox
 exec redshift
-exec synergys
+#exec synergys
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1

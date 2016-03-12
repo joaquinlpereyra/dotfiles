@@ -1,0 +1,9 @@
+search .config
+move
+delete 
+wq
+mkdir .i3
+cut
+paste
+
+rename gif2

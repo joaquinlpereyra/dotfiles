@@ -16,7 +16,6 @@
 "    -> Status line
 "    -> Editing mappings
 "    -> Spell checking
-"    -> Misc
 "    -> Helper functions
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -44,10 +43,11 @@ Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/syntastic'
 Plugin 'chriskempson/base16-vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
-Plugin 'bling/vim-airline'
 Plugin 'guns/vim-clojure-static'
 Plugin 'vim-scripts/VimClojure'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'Valloric/YouCompleteMe'
+Bundle 'gabrielelana/vim-markdown'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -146,7 +146,6 @@ map <F1> gcc
 nmap <F2> :NERDTreeToggle<cr>
 nmap <F3> :SyntasticCheck<cr>
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -228,8 +227,8 @@ set foldcolumn=1
 " Enable syntax highlighting
 syntax enable 
 
-"Set vertical ruler to 80
-set colorcolumn=80
+"Set vertical ruler to 81
+set colorcolumn=81
 
 let base16colorspace=256 "for base16-default correct working
 try
@@ -341,12 +340,6 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap VIM 0 to first non-blank character
 map 0 ^
-
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <C-j> mz:m+<cr>`z
-nmap <C-k> mz:m-2<cr>`z
-vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
