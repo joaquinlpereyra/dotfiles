@@ -38,16 +38,30 @@ Plugin 'gmarik/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
+
+" General Plugins
 Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-commentary'
-Plugin 'scrooloose/syntastic'
 Plugin 'chriskempson/base16-vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
+Bundle 'mattn/webapi-vim'
+Plugin 'mattn/gist-vim'
+
+" Programming plugins
+Plugin 'tpope/vim-commentary'
+Plugin 'scrooloose/syntastic'
 Plugin 'guns/vim-clojure-static'
 Plugin 'vim-scripts/VimClojure'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'Valloric/YouCompleteMe'
-Bundle 'gabrielelana/vim-markdown'
+
+" Writing plugins
+Plugin 'junegunn/goyo.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'nelstrom/vim-markdown-folding'
+Plugin 'tpope/vim-markdown'
+Plugin 'reedes/vim-pencil'
+Plugin 'reedes/vim-colors-pencil'
+
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -65,8 +79,7 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
-"
-" Brief help
+" " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
@@ -84,11 +97,16 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+
+let g:syntastic_mode_map = {
+    \ "mode": "passive"}
+
+nmap <F3> :SyntasticCheck<cr>
 
 " NERDTree
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
+
+nmap <F2> :NERDTreeToggle<cr>
 
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
@@ -114,6 +132,25 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
+
+" Goyo set F5 to goyo
+nmap <F5> :Goyo<cr>
+
+" Pencil
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
+
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+let g:pencil#concealcursor = 'n'  " n=normal, v=visual, i=insert, c=command (def)
+
+" Gists
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_post_private = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -142,10 +179,14 @@ command W w
 
 
 "maps F1 to toogle comment line, F2 to NERDTree and F3 to SyntasticCheck
-map <F1> gcc
-nmap <F2> :NERDTreeToggle<cr>
-nmap <F3> :SyntasticCheck<cr>
+nmap <F1> gcc
 
+" Sets me up for writing with Markdown
+autocmd Filetype markdown call SetUpMk()
+function SetUpMk()
+    colorscheme pencil
+    "execute Goyo
+endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -231,12 +272,9 @@ syntax enable
 set colorcolumn=81
 
 let base16colorspace=256 "for base16-default correct working
-try
-    colorscheme base16-default
-catch
-endtry
-
+colorscheme base16-default
 set background=dark
+
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -292,9 +330,9 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 map j gj
 map k gk
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
+" Map Space to Open/Close folds
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><CR> :noh <CR>

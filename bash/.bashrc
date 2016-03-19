@@ -127,3 +127,4 @@ export EDITOR=vim
 BASE16_SHELL="$HOME/.config/base16-shell/base16-chalk.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 eval $(dircolors -b $HOME/.dircolors)
+bind 'set completion-ignore-case on'
