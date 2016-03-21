@@ -138,10 +138,23 @@ nmap <F5> :Goyo<cr>
 
 " Pencil
 augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init()
+   autocmd!
+   autocmd FileType markdown,mkd call pencil#init() 
+   autocmd FileType text         call pencil#init()
+ augroup END
+
+augroup markdown
+    autocmd!
+    autocmd Filetype markdown,mkd call SetUpMk()
 augroup END
+
+function! SetUpMk()
+    colorscheme pencil
+    " execute `Goyo` if it's not already active
+    if !exists('#goyo')
+        Goyo
+    endif
+endfunction
 
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 let g:pencil#concealcursor = 'n'  " n=normal, v=visual, i=insert, c=command (def)
@@ -181,12 +194,6 @@ command W w
 "maps F1 to toogle comment line, F2 to NERDTree and F3 to SyntasticCheck
 nmap <F1> gcc
 
-" Sets me up for writing with Markdown
-autocmd Filetype markdown call SetUpMk()
-function SetUpMk()
-    colorscheme pencil
-    "execute Goyo
-endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
