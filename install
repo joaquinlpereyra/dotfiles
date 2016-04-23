@@ -3,32 +3,36 @@
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 #clone and install dependencies
-
 git clone https://github.com/chriskempson/base16-gnome-terminal /tmp/
 tmpFolder="/tmp/base16-gnome-terminal/"
 destFolder="~/.config/base16-gnome-terminal/"
 mkdir "$destFolder"
 mv "$tmpFolder/base16-default-dark.sh" "$destFolder/base16-default-dark-dark.sh"
-
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 
 #vim
+echo 'symlinking vim config'
 ln -s ${BASEDIR}/vim/.vim ~/.vim
 ln -s ${BASEDIR}/vim/.vimrc ~/.vimrc
 
 #i3
+echo 'symlinking i3 config. i need to remove your ~/.i3'
+rm -ri ~/.i3
 ln -s ${BASEDIR}/i3/.i3 ~/.i3
 ln -s ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
 
 #bash
+echo 'symlinking bash config'
 ln -s ${BASEDIR}/bash/.bashrc ~/.bashrc
 ln -s ${BASEDIR}/bash/.dircolors ~/.dircolors
 ln -s ${BASEDIR}/bash/.xinitrc ~/.xinitrc
 
 #ranger
+echo 'symlinking ranger config. I need to remove ~/.config/ranger'
+rm -ri ~/.config/ranger
 ln -s ${BASEDIR}/ranger/ ~/.config/ranger
 
-#i3
-ln -s ${BASEDIR}/i3/.i3/config ~/.i3/config
-ln -s ${BASEDIR}/i3/.i3/statusbar ~/.i3/statusbar
-ln -s ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
+#zsh
+echo 'symlinkgin zsh prezto. I need to remove ~/.zprezto'
+rm -ri ~/.zprezto
+ln - s ${BASEDIR}/zsh/zprezto ~/.zprezto

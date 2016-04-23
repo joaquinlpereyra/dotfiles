@@ -45,6 +45,9 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Bundle 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-fugitive'
 
 " Programming plugins
 Plugin 'tpope/vim-commentary'
@@ -101,7 +104,18 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_mode_map = {
     \ "mode": "passive"}
 
+let g:syntastic_quiet_messages = {
+    \ "regex": '\[E402\]'}
+
+let g:syntastic_python_python_exe = 'python2'
+
 nmap <F3> :SyntasticCheck<cr>
+
+" YouCompleteMe
+
+"" close stupid scratch window automatically
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " NERDTree
 let NERDTreeShowHidden=0
@@ -141,35 +155,35 @@ augroup pencil
    autocmd!
    autocmd FileType markdown,mkd call pencil#init() 
    autocmd FileType text         call pencil#init()
+   autocmd FileType markdown,mkd colorscheme pencil
  augroup END
 
-augroup markdown
-    autocmd!
-    autocmd Filetype markdown,mkd call SetUpMk()
-augroup END
-
-function! SetUpMk()
-    colorscheme pencil
-    " execute `Goyo` if it's not already active
-    if !exists('#goyo')
-        Goyo
-    endif
-endfunction
-
+let g:markdown_fold_style = 'nested'
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+let g:pencil#autoformat = 0      " 0=manual, 1=auto (def)
 let g:pencil#concealcursor = 'n'  " n=normal, v=visual, i=insert, c=command (def)
+let g:pencil_terminal_italics = 1
 
 " Gists
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 
+" vim-airline
+let g:airline#extensions#tabline#enabled = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"Hide default mode indicator, vim-airline does this already
+set noshowmode
+
 " Sets how many lines of history VIM has to remember
 set history=700
+
+" Enable changing buffers without saving
+set hidden
 
 " Enable filetype plugins
 filetype plugin on
@@ -197,8 +211,9 @@ nmap <F1> gcc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Always show line numbers:
+" Always show line numbers and relative numbers
 set number
+set relativenumber
 
 " Highlight current line
 set cursorline
@@ -242,13 +257,13 @@ set ignorecase
 set smartcase
 
 " Highlight search results
-set hlsearch
+set nohlsearch
 
-" Makes search act like search in modern browsers
-set incsearch 
+" Makes search act like earch in modern browsers
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
@@ -279,7 +294,7 @@ syntax enable
 set colorcolumn=81
 
 let base16colorspace=256 "for base16-default correct working
-colorscheme base16-default
+colorscheme base16-chalk
 set background=dark
 
 
@@ -352,7 +367,8 @@ map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
-
+map <leader>m :bn<cr>
+map <leader>n :bp<cr>
 
 " Specify the behavior when switching between buffers 
 try
@@ -392,6 +408,7 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
+
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
