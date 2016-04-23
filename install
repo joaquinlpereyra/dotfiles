@@ -3,36 +3,50 @@
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 #clone and install dependencies
-git clone https://github.com/chriskempson/base16-gnome-terminal /tmp/
-tmpFolder="/tmp/base16-gnome-terminal/"
-destFolder="~/.config/base16-gnome-terminal/"
-mkdir "$destFolder"
-mv "$tmpFolder/base16-default-dark.sh" "$destFolder/base16-default-dark-dark.sh"
-git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+tmpFolder="/tmp/base16-gnome-terminal"
+destFolder="$HOME/.config/base16-gnome-terminal"
+if [[ ! -d "$destFolder" ]]; then
+    git clone https://github.com/chriskempson/base16-gnome-terminal $tmpFolder/
+    mkdir "$destFolder/"
+    mv "$tmpFolder/base16-chalk.dark.sh" "$destFolder/base16-chalk.dark.sh"
+    rm -rf $tmpFolder/
+else 
+    echo "Looks like you've already got base16-gnome-terminal"
+    echo "If that's not the case, check what's in $destFolder"
+fi
+
+base16_shell_dir="$HOME/.config/base16-shell"
+if [[ ! -d  "$base16_shell_dir" ]]; then 
+    git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+else
+    echo "Looks like you've already got base16-shell"
+    echo "If that's not the case, check what's in $base16_shell_dir"
+fi
+
+echo "THIS WILL REMOVE ALL YOUR VIM, BASH, ZSH/ZPREZTO AND RANGER CONFIGS"
+echo "Press Ctrl+C to quit now, or Enter to continue"
+read -p ""
 
 #vim
 echo 'symlinking vim config'
-ln -s ${BASEDIR}/vim/.vim ~/.vim
-ln -s ${BASEDIR}/vim/.vimrc ~/.vimrc
+ln -sf ${BASEDIR}/vim/.vim ~/.vim
+ln -sf ${BASEDIR}/vim/.vimrc ~/.vimrc
 
 #i3
 echo 'symlinking i3 config. i need to remove your ~/.i3'
-rm -ri ~/.i3
-ln -s ${BASEDIR}/i3/.i3 ~/.i3
-ln -s ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
+ln -sf ${BASEDIR}/i3/.i3 ~/.i3
+ln -sf ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
 
 #bash
 echo 'symlinking bash config'
-ln -s ${BASEDIR}/bash/.bashrc ~/.bashrc
-ln -s ${BASEDIR}/bash/.dircolors ~/.dircolors
-ln -s ${BASEDIR}/bash/.xinitrc ~/.xinitrc
+ln -sf ${BASEDIR}/bash/.bashrc ~/.bashrc
+ln -sf ${BASEDIR}/bash/.dircolors ~/.dircolors
+ln -sf ${BASEDIR}/bash/.xinitrc ~/.xinitrc
 
 #ranger
 echo 'symlinking ranger config. I need to remove ~/.config/ranger'
-rm -ri ~/.config/ranger
-ln -s ${BASEDIR}/ranger/ ~/.config/ranger
+ln -sf ${BASEDIR}/ranger/ ~/.config/ranger
 
 #zsh
 echo 'symlinkgin zsh prezto. I need to remove ~/.zprezto'
-rm -ri ~/.zprezto
-ln - s ${BASEDIR}/zsh/zprezto ~/.zprezto
+ln -sf ${BASEDIR}/zsh/zprezto ~/.zprezto
