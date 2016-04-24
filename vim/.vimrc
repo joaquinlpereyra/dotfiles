@@ -49,6 +49,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'sjl/gundo.vim'
 
 " Programming plugins
 Plugin 'tpope/vim-commentary'
@@ -57,6 +58,7 @@ Plugin 'guns/vim-clojure-static'
 Plugin 'vim-scripts/VimClojure'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'majutsushi/tagbar'
 
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
@@ -92,7 +94,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins
+" Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 set statusline+=%#warningmsg#
@@ -128,6 +130,12 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
+" tagbars
+nmap <F5> :TagbarToggle<cr>
+
+" Gundo
+nmap <F4> :GundoToggle<cr>
+
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
@@ -153,8 +161,8 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
-" Goyo set F5 to goyo
-nmap <F5> :Goyo<cr>
+" Goyo set F0 to goyo
+nmap <F9> :Goyo<cr>
 
 " Pencil
 augroup pencil
