@@ -40,7 +40,7 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 
 " General Plugins
-Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-vinegar'
 Plugin 'chriskempson/base16-vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Bundle 'mattn/webapi-vim'
@@ -48,6 +48,7 @@ Plugin 'mattn/gist-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " Programming plugins
 Plugin 'tpope/vim-commentary'
@@ -117,10 +118,15 @@ nmap <F3> :SyntasticCheck<cr>
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
-" NERDTree
-let NERDTreeShowHidden=0
+" Vinegar
+nmap <F2> :Explore<cr>
 
-nmap <F2> :NERDTreeToggle<cr>
+" CtrlP
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
