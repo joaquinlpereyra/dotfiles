@@ -148,7 +148,7 @@ bindsym Mod1+Shift+minus move scratchpad
 bindsym Mod1+minus scratchpad show
 #Workspace mods
 workspace_auto_back_and_forth yes
-bindsym Mod1+0x0ba workspace next
+#bindsym Mod1+0x0ba workspace next
 
 #start dual screen
 exec xrandr --output VGA1 --mode 1360x768 --rate 59.80 --right-of LVDS1 --output LVDS1 --mode 1440x900 --rate 60.00
@@ -183,7 +183,7 @@ bindsym Mod1+7 workspace number 7
 bindsym Mod1+8 workspace number 8
 bindsym Mod1+9 workspace number 9
 bindsym Mod1+0 workspace number 10
-bindsym Mod1+º workspace number 0
+bindsym Mod1+0x0ba  workspace number 0
 
 # move focused container to workspace
 bindsym Mod1+Shift+1 move container to workspace number 1
