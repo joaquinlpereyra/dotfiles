@@ -50,6 +50,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'sjl/gundo.vim'
+Plugin 'unblevable/quick-scope'
 
 " Programming plugins
 Plugin 'tpope/vim-commentary'
@@ -113,6 +114,9 @@ let g:syntastic_quiet_messages = {
 let g:syntastic_python_python_exe = 'python2'
 
 nmap <F3> :SyntasticCheck<cr>
+
+" Quick scope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " YouCompleteMe
 
