@@ -17,18 +17,11 @@ hide_edge_borders both
 #for_window [class="Gnome-terminal"] floating enable
 for_window [class="Gpicview"] border normal
 
-#BANSHEE RATINGS
-#bindsym Mod1+F1 exec banshee --set-rating=1
-#bindsym Mod1+F2 exec banshee --set-rating=2
-#bindsym Mod1+F3 exec banshee --set-rating=3
-#bindsym Mod1+F4 exec banshee --set-rating=4
-#bindsym Mod1+F5 exec banshee --set-rating=5
-
 # Multimedia Keys
 # increase volume
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+bindsym Next exec amixer -q set Master 5%+ unmute
 # decrease volume
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
+bindsym End exec amixer -q set Master 5%- unmute
 # pause / play / next / previous
 #FOR BANSHEE
 #bindsym XF86AudioPlay exec playerctl play-pause
@@ -37,8 +30,6 @@ bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 
 #FOR CMUS
 bindsym Insert exec cmus-remote --pause
-bindsym Prior exec cmus-remote --next
-bindsym Home exec cmus-remote --prev
 
 # BLOCK SCREEN
 #bindsym F2 exec ~/.scripts/bin/i3lock-fancy
@@ -153,25 +144,6 @@ bindsym Mod1+0x0ba workspace next
 #start dual screen
 exec xrandr --output VGA1 --mode 1360x768 --rate 59.80 --right-of LVDS1 --output LVDS1 --mode 1440x900 --rate 60.00
 
-#rename workspaces at start
-exec i3-msg 'rename workspace 1 to "0: vim"'
-#exec i3-msg 'rename workspace 2 to "1: documentation"'
-#exec i3-msg 'rename workspace 3 to "3: serious"'
-#exec i3-msg 'rename workspace 4 to "4: media"'
-
-
-#put workspaces in the monitor they belong
-workspace 1 output VGA1
-workspace 0 output LVDS
-
-#execut startup non invisible apps
-#assign [class="chrome"] 1: internet
-#assign [class="Chrome"] 1: internet
-#assign [class="Chromium"] 1: internet
-#assign [class="chromium"] 1: internet
-#assign [class="gmusicbrowser"] 4: media
-exec gnome-terminal
-#
 # switch to workspace
 bindsym Mod1+1 workspace number 1
 bindsym Mod1+2 workspace number 2
@@ -183,7 +155,6 @@ bindsym Mod1+7 workspace number 7
 bindsym Mod1+8 workspace number 8
 bindsym Mod1+9 workspace number 9
 bindsym Mod1+0 workspace number 10
-bindsym Mod1+º workspace number 0
 
 # move focused container to workspace
 bindsym Mod1+Shift+1 move container to workspace number 1
