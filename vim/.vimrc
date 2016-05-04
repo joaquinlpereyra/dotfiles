@@ -63,8 +63,8 @@ Plugin 'majutsushi/tagbar'
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
 Plugin 'godlygeek/tabular'
-Plugin 'nelstrom/vim-markdown-folding'
-Plugin 'tpope/vim-markdown'
+" Plugin 'nelstrom/vim-markdown-folding'
+" Plugin 'tpope/vim-markdown'
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-colors-pencil'
 
@@ -92,10 +92,18 @@ filetype plugin indent on    " required
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TOP LEVEL
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" With a map leader it's possible to do extra key combinations
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -125,6 +133,7 @@ nmap <F2> :Explore<cr>
 
 " CtrlP
 let g:ctrlp_cmd = 'CtrlPMixed'
+nmap <leader>o :CtrlP<cr>
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -132,6 +141,9 @@ endif
 
 " tagbars
 nmap <F4> :TagbarToggle<cr>
+let g:tagbar_sort = 0
+let g:tagbar_autoshowtag = 1
+
 
 " Gundo
 nmap <F5> :GundoToggle<cr>
@@ -161,16 +173,16 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
-" Goyo set F0 to goyo
+" Goyo set F9 to goyo
 nmap <F9> :Goyo<cr>
 
 " Pencil
-augroup pencil
-   autocmd!
-   autocmd FileType markdown,mkd call pencil#init() 
-   autocmd FileType text         call pencil#init()
-   autocmd FileType markdown,mkd colorscheme pencil
- augroup END
+"augroup pencil
+"  autocmd!
+"  autocmd FileType markdown,mkd call pencil#init() 
+"  autocmd FileType text         call pencil#init()
+"  autocmd FileType markdown,mkd colorscheme pencil
+"augroup END
 
 let g:markdown_fold_style = 'nested'
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
@@ -206,18 +218,12 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
-
 " Fast saving
 nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command W w 
-
 
 "maps F1 to toogle comment line, F2 to NERDTree and F3 to SyntasticCheck
 nmap <F1> gcc
@@ -378,6 +384,12 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Smart way to resize window
+nmap <C-Left> <C-W><
+nmap <C-Right> <C-W>>
+nmap <C-Up> <C-W>+
+nmap <C-Down> <C-W>-
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>

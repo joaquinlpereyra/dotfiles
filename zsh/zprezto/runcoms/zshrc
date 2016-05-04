@@ -29,6 +29,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias cat='ccat'
+alias c='xsel -ib'
 
 export TERM=xterm-256color
 export VISUAL=vim
