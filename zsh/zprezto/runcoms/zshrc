@@ -29,14 +29,19 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 open_all_python() {
-    # Search all python non-magical files. If any is found, open them in vim
-    py_files=("$1"/[^__]*.py(N))
+    # Search all python non-dunder files. If any is found, open them in vim
+    if [[ -n "$1" ]]; then
+        dir=$1
+    else
+        dir="."
+    fi
+
+    py_files=($dir/[^__]*.py(N))
     if [[ -n "$py_files" ]]; then 
-        vim "$py_files"
+        vim $py_files
     fi
 }
 
-#alias vimpy="vim $1/[^__]*.py"
 alias vimpy=open_all_python
 alias cat='ccat'
 alias c='xsel -ib'
