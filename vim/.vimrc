@@ -40,7 +40,6 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 
 " General Plugins
-Plugin 'tpope/vim-vinegar'
 Plugin 'chriskempson/base16-vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Bundle 'mattn/webapi-vim'
@@ -63,11 +62,6 @@ Plugin 'majutsushi/tagbar'
 
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
-Plugin 'godlygeek/tabular'
-" Plugin 'nelstrom/vim-markdown-folding'
-" Plugin 'tpope/vim-markdown'
-Plugin 'reedes/vim-pencil'
-Plugin 'reedes/vim-colors-pencil'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
@@ -131,6 +125,15 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "" close stupid scratch window automatically
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" rebind very useful commands like :YcmCompleter GoTo to :GoTo
+command GoTo :YcmCompleter GoTo
+command GetDoc :YcmCompleter GetDoc
+command GoDeclaration :YcmCompleter GoToDeclaration
+command GoDefinition :YcmCompleter GoToDefinition
+command GoReferences :YcmCompleter GoToReferences
+
+
 
 " Vinegar
 nmap <F2> :Explore<cr>
@@ -201,10 +204,14 @@ let g:gist_post_private = 1
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set folder to save .swp backups
+set backupdir=~/.swp-folder
+set directory=~/.swp-folder
 
 "Hide default mode indicator, vim-airline does this already
 set noshowmode
@@ -314,8 +321,8 @@ set foldcolumn=1
 " Enable syntax highlighting
 syntax enable 
 
-"Set vertical ruler to 81
-set colorcolumn=81
+"Set vertical ruler to 80
+set colorcolumn=80
 
 let base16colorspace=256 "for base16-default correct working
 colorscheme base16-chalk

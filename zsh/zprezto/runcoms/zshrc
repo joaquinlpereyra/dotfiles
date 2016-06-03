@@ -28,8 +28,22 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+open_all_python() {
+    # Search all python non-magical files. If any is found, open them in vim
+    py_files=("$1"/[^__]*.py(N))
+    if [[ -n "$py_files" ]]; then 
+        vim "$py_files"
+    fi
+}
+
+#alias vimpy="vim $1/[^__]*.py"
+alias vimpy=open_all_python
 alias cat='ccat'
 alias c='xsel -ib'
+alias cu="sudo systemctl start couchdb"
+alias ck="sudo systemctl stop couchdb"
+alias gw="cd ~/faraday-assembla/faraday/"
+alias gwg="cd ~/faraday-assembla/faraday/gui/gtk"
 
 export TERM=xterm-256color
 export VISUAL=vim
