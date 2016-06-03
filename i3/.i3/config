@@ -35,7 +35,7 @@ bindsym Insert exec cmus-remote --pause
 #bindsym F2 exec ~/.scripts/bin/i3lock-fancy
 
 # PRINT SCREENSHOTS
-bindsym Print exec scrot -e 'mv $f ~/temp/'
+bindsym Print exec scrot -e 'mv $f ~/Temp/'
 
 # REDSHIFT
 # bindsym Pause exec pkill -USR1 redshift
@@ -46,6 +46,8 @@ exec feh --bg-scale ~/.wallpaper
 exec google-chrome-stable
 exec dropbox
 exec xautolock -time 5 -locker /usr/local/bin/lock/lock
+exec flexget daemon start
+exec redshift
 
 
 #exec synergys
