@@ -10,7 +10,7 @@
 #
 
 # MY CONFIG ---- MY CONFIG ---- MY CONFIG ---
-new_window 1pixel
+new_window pixel 1
 hide_edge_borders both
 
 #SET FLOATING FOR ALL XTERM
@@ -155,6 +155,7 @@ exec xrandr --output VGA1 --mode 1360x768 --rate 59.80 --right-of LVDS1 --output
 
 #rename workspaces at start
 exec i3-msg 'rename workspace 1 to "0: vim"'
+exec i3-msg 'rename workspace 10 to "10: music"'
 #exec i3-msg 'rename workspace 2 to "1: documentation"'
 #exec i3-msg 'rename workspace 3 to "3: serious"'
 #exec i3-msg 'rename workspace 4 to "4: media"'
@@ -235,7 +236,7 @@ bindsym Mod1+r mode "resize"
 bar {
         status_command i3status
         #status_command ~/.i3/statusbar
-	position top
+	position bottom
 	tray_output none
     mode hide
     modifier Mod1
