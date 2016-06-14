@@ -12,6 +12,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 setxkbmap es -option "lv3:ralt_switch,esperanto:qwerty"
+xmodmap ~/.dotfiles/capstoescape
 exec i3
 # exec startlxde
 # exec gnome-session
