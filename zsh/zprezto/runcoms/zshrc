@@ -20,8 +20,8 @@ fi
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto --group-directories-first --sort=extension'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
@@ -30,15 +30,17 @@ fi
 
 open_all_python() {
     # Search all python non-dunder files. If any is found, open them in vim
-    if [[ -n "$1" ]]; then
+    if [[ -n "$1" && -d "$1" ]]; then
         dir=$1
+        args=$2
     else
         dir="."
+        args="$1"
     fi
 
     py_files=($dir/[^__]*.py(N))
     if [[ -n "$py_files" ]]; then 
-        vim $py_files
+        vim $py_files $args
     fi
 }
 
@@ -49,6 +51,7 @@ alias cu="sudo systemctl start couchdb"
 alias ck="sudo systemctl stop couchdb"
 alias gw="cd ~/faraday-assembla/faraday/"
 alias gwg="cd ~/faraday-assembla/faraday/gui/gtk"
+alias fo="~/faraday-assembla/faraday/faraday.py --gui=gtk"
 
 export TERM=xterm-256color
 export VISUAL=vim

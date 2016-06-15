@@ -50,6 +50,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'unblevable/quick-scope'
+Plugin 'mmahnic/vim-flipwords'
+
 
 " Programming plugins
 Plugin 'tpope/vim-commentary'
@@ -59,6 +61,7 @@ Plugin 'vim-scripts/VimClojure'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
+Plugin 'neovimhaskell/haskell-vim'
 
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
