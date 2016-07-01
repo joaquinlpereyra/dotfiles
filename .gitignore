@@ -1,0 +1,7 @@
+vim/.vim/bundle/*
+ranger/history
+ranger/tagged
+ranger/bookmarks
+
+*.swp
+*~

@@ -24,12 +24,14 @@ for_window [class="Gpicview"] border normal
 #bindsym Mod1+F4 exec banshee --set-rating=4
 #bindsym Mod1+F5 exec banshee --set-rating=5
 
-# Multimedia Keys
-# increase volume
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+# Multimedia Keys (NOTEBOOK)
+# increase volume 
+#  bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 # decrease volume
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
-# pause / play / next / previous
+#bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
+# Multimedia Keys (DESKTOP)
+bindsym Prior exec amixer -q set Master 5%+ unmute
+bindsym Home exec amixer -q set Master 5%- unmute
 #FOR BANSHEE
 #bindsym XF86AudioPlay exec playerctl play-pause
 #bindsym XF86AudioNext exec playerctl next
@@ -37,8 +39,8 @@ bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 
 #FOR CMUS
 bindsym Insert exec cmus-remote --pause
-bindsym Prior exec cmus-remote --next
-bindsym Home exec cmus-remote --prev
+# bindsym Prior exec cmus-remote --next
+# bindsym Home exec cmus-remote --prev
 
 # BLOCK SCREEN
 #bindsym F2 exec ~/.scripts/bin/i3lock-fancy
@@ -151,19 +153,15 @@ workspace_auto_back_and_forth yes
 #bindsym Mod1+0x0ba workspace next
 
 #start dual screen
-exec xrandr --output VGA1 --mode 1360x768 --rate 59.80 --right-of LVDS1 --output LVDS1 --mode 1440x900 --rate 60.00
+# exec xrandr --output VGA1 --mode 1360x768 --rate 59.80 --right-of LVDS1 --output LVDS1 --mode 1440x900 --rate 60.00
 
 #rename workspaces at start
-exec i3-msg 'rename workspace 1 to "0: vim"'
-exec i3-msg 'rename workspace 10 to "10: music"'
+#exec i3-msg 'rename workspace 1 to "0: vim"'
+#exec i3-msg 'rename workspace 10 to "10: music"'
 #exec i3-msg 'rename workspace 2 to "1: documentation"'
 #exec i3-msg 'rename workspace 3 to "3: serious"'
 #exec i3-msg 'rename workspace 4 to "4: media"'
 
-
-#put workspaces in the monitor they belong
-workspace 1 output VGA1
-workspace 0 output LVDS
 
 #execut startup non invisible apps
 #assign [class="chrome"] 1: internet
