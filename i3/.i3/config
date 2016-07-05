@@ -29,16 +29,11 @@ for_window [class="Gpicview"] border normal
 bindsym Next exec amixer -q set Master 5%+ unmute
 # decrease volume
 bindsym End exec amixer -q set Master 5%- unmute
-# pause / play / next / previous
-#FOR BANSHEE
-#bindsym XF86AudioPlay exec playerctl play-pause
-#bindsym XF86AudioNext exec playerctl next
-#bindsym XF86AudioPrev exec playerctl previous
 
 #FOR CMUS
 bindsym Insert exec cmus-remote --pause
-bindsym Prior exec cmus-remote --next
-bindsym Home exec cmus-remote --prev
+# bindsym Prior exec cmus-remote --next
+# bindsym Home exec cmus-remote --prev
 
 # BLOCK SCREEN
 #bindsym F2 exec ~/.scripts/bin/i3lock-fancy
