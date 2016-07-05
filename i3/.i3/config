@@ -26,9 +26,9 @@ for_window [class="Gpicview"] border normal
 
 # Multimedia Keys
 # increase volume
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+bindsym Next exec amixer -q set Master 5%+ unmute
 # decrease volume
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
+bindsym End exec amixer -q set Master 5%- unmute
 # pause / play / next / previous
 #FOR BANSHEE
 #bindsym XF86AudioPlay exec playerctl play-pause
@@ -48,14 +48,6 @@ bindsym Print exec scrot -e 'mv $f ~/temp/'
 
 # REDSHIFT
 # bindsym Pause exec pkill -USR1 redshift
-
-#WALLAPPER WITH FEH
-exec feh --bg-scale ~/.wallpaper
-#STARTUP APPLICATIONS
-exec google-chrome-stable
-exec dropbox
-exec xautolock -time 5 -locker /usr/local/bin/lock/lock
-
 
 #exec synergys
 # Font for window titles. Will also be used by the bar unless a different font
@@ -135,10 +127,10 @@ bindsym Mod1+Shift+space floating toggle
 bindsym Mod1+space focus mode_toggle
 
 # focus the parent container
-#bindsym Mod1+a focus parent
+bindsym Mod1+a focus parent
 
 # focus the child container
-#bindsym Mod1+d focus child
+bindsym Mod1+d focus child
 
 # move the currently focused window to the scratchpad
 bindsym Mod1+Shift+minus move scratchpad
@@ -146,33 +138,30 @@ bindsym Mod1+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym Mod1+minus scratchpad show
+
 #Workspace mods
 workspace_auto_back_and_forth yes
-#bindsym Mod1+0x0ba workspace next
 
 #start dual screen
-exec xrandr --output VGA1 --mode 1360x768 --rate 59.80 --right-of LVDS1 --output LVDS1 --mode 1440x900 --rate 60.00
+exec xrandr --output VGA1 --mode 1920x1080 --right-of LVDS1 --output LVDS1 --mode 1440x900
 
 #rename workspaces at start
 exec i3-msg 'rename workspace 1 to "0: vim"'
 exec i3-msg 'rename workspace 10 to "10: music"'
-#exec i3-msg 'rename workspace 2 to "1: documentation"'
-#exec i3-msg 'rename workspace 3 to "3: serious"'
-#exec i3-msg 'rename workspace 4 to "4: media"'
-
 
 #put workspaces in the monitor they belong
-workspace 1 output VGA1
-workspace 0 output LVDS
+workspace 1 output VGA
+workspace 0 output LVDS1
+workspace 10 output LVDS1
 
-#execut startup non invisible apps
-#assign [class="chrome"] 1: internet
-#assign [class="Chrome"] 1: internet
-#assign [class="Chromium"] 1: internet
-#assign [class="chromium"] 1: internet
-#assign [class="gmusicbrowser"] 4: media
+#WALLAPPER WITH FEH
+exec feh --bg-scale ~/.wallpaper
+#STARTUP APPLICATIONS
+exec google-chrome-stable
+exec dropbox
+exec xautolock -time 5 -locker /usr/local/bin/lock/lock
 exec gnome-terminal
-#
+
 # switch to workspace
 bindsym Mod1+1 workspace number 1
 bindsym Mod1+2 workspace number 2
@@ -184,7 +173,7 @@ bindsym Mod1+7 workspace number 7
 bindsym Mod1+8 workspace number 8
 bindsym Mod1+9 workspace number 9
 bindsym Mod1+0 workspace number 10
-bindsym Mod1+0x0ba  workspace number 0
+bindsym Mod1+0x0ba workspace number 0
 
 # move focused container to workspace
 bindsym Mod1+Shift+1 move container to workspace number 1

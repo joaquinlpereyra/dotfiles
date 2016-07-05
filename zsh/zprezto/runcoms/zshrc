@@ -52,6 +52,8 @@ alias ck="sudo systemctl stop couchdb"
 alias gw="cd ~/faraday-assembla/faraday/"
 alias gwg="cd ~/faraday-assembla/faraday/gui/gtk"
 alias fo="~/faraday-assembla/faraday/faraday.py --gui=gtk"
+alias wid="sudo netctl stop-all"
+alias wiu="sudo netctl start McLovyn-Good"
 
 export TERM=xterm-256color
 export VISUAL=vim
