@@ -1,7 +1,10 @@
 vim/.vim/bundle/*
+vim/.vim/colors/*
 ranger/history
 ranger/tagged
 ranger/bookmarks
+ranger/*
+ranger/!ranger
 
 *.swp
 *~
