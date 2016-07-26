@@ -103,9 +103,9 @@ let g:mapleader = "\<Space>"
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+""set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -114,9 +114,11 @@ let g:syntastic_mode_map = {
     \ "mode": "passive"}
 
 let g:syntastic_quiet_messages = {
-    \ "regex": '\[E402\]'}
+    \ "regex": ['E402', 'E501']}
 
 let g:syntastic_python_python_exe = 'python2'
+let g:syntastic_python_checkers = ['pyflakes', 'flake8']
+let g:syntastic_enable_signs = 0
 
 nmap <F3> :SyntasticCheck<cr>
 
@@ -128,6 +130,11 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "" close stupid scratch window automatically
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_strings = 1 " Completion in string
+
 
 " rebind very useful commands like :YcmCompleter GoTo to :GoTo
 command GoTo :YcmCompleter GoTo
@@ -188,6 +195,7 @@ let g:gist_post_private = 1
 " vim-airline
 let g:airline_section_x = '%{TagInStatusLine()}'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 0
 
 " Sneak
 let g:sneak#s_next = 1

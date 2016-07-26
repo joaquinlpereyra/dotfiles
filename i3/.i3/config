@@ -125,7 +125,7 @@ bindsym Mod1+space focus mode_toggle
 bindsym Mod1+a focus parent
 
 # focus the child container
-bindsym Mod1+d focus child
+bindsym Mod1+b focus child
 
 # move the currently focused window to the scratchpad
 bindsym Mod1+Shift+minus move scratchpad
@@ -146,7 +146,6 @@ exec i3-msg 'rename workspace 10 to "10: music"'
 
 #put workspaces in the monitor they belong
 workspace 1 output VGA
-workspace 0 output LVDS1
 workspace 10 output LVDS1
 
 #WALLAPPER WITH FEH
