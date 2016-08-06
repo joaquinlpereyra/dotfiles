@@ -32,11 +32,10 @@ alias vimpy=open_all_python
 
 alias cu="sudo systemctl start couchdb"
 alias ck="sudo systemctl stop couchdb"
-
-alias gw="cd ~/faraday-assembla/faraday/"
-alias gwg="cd ~/faraday-assembla/faraday/gui/gtk"
-alias fo="~/faraday-assembla/faraday/faraday.py --gui=gtk"
-alias fs="~/faraday-assembla/faraday/faraday-server.py"
+alias gw="cd ~/faraday/"
+alias gwg="cd ~/faraday/gui/gtk"
+alias fo="python2 ~/faraday/faraday.py"
+alias fs="python2 ~/faraday/faraday-server.py"
 
 alias cat='ccat'
 alias c='xsel -ib'
@@ -62,6 +61,6 @@ export VISUAL=vim
 export EDITOR=vim
 
 
-BASE16_SHELL="$HOME/.config/base16-shell/base16-chalk.dark.sh"
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 eval $(dircolors -b $HOME/.dircolors)

@@ -13,8 +13,8 @@ fi
 
 setxkbmap es -option "lv3:ralt_switch,esperanto:qwerty"
 xmodmap ~/.dotfiles/capstoescape
-exec i3
-#exec startlxde
+exec dbus-launch i3
+# exec startlxde
 # exec gnome-session
 # exec startkde
 # exec startxfce4
