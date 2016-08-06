@@ -19,8 +19,9 @@ destFolder="$HOME/.config/base16-gnome-terminal"
 if [[ ! -d "$destFolder" ]]; then
     git clone https://github.com/chriskempson/base16-gnome-terminal $tmpFolder/
     mkdir "$destFolder/"
-    mv "$tmpFolder/base16-chalk.sh" "$destFolder/base16-chalk.sh"
-    $(chmod +x $destFolder/base16-chalk.sh)
+    mv "$tmpFolder/base16-chalk.dark.sh" "$destFolder/base16-chalk.dark.sh"
+    $(chmod +x $destFolder/base16-chalk.dark.sh)
+    $($destFolder/base16-chalk.dark.sh)
     rm -rf $tmpFolder/
 else 
     echo "Looks like you've already got base16-gnome-terminal"
@@ -30,6 +31,7 @@ fi
 base16_shell_dir="$HOME/.config/base16-shell"
 if [[ ! -d  "$base16_shell_dir" ]]; then 
     git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+    $(chmod +x ~/.conig/base16-shell/*)
 else
     echo "Looks like you've already got base16-shell"
     echo "If that's not the case, check what's in $base16_shell_dir"
@@ -65,5 +67,5 @@ ln -sf ${BASEDIR}/zsh/zprezto ~/.zprezto
 
 #wallpapers randomizer
 echo "setting up a random wallpaper from you <3"
-$(chmod +x "$BASEDIR/wallpaper-randomizer.sh")
-$($BASEDIR/wallpaper-randomizer.sh)
+$(chmod +x "$BASEDIR/wall-randomizer.sh")
+$($BASEDIR/wall-randomizer.sh)
