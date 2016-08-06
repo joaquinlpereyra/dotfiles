@@ -10,19 +10,12 @@
 #
 
 # MY CONFIG ---- MY CONFIG ---- MY CONFIG ---
-new_window pixel 1
+new_window pixel 2
 hide_edge_borders both
-
-#SET FLOATING FOR ALL XTERM
-#for_window [class="Gnome-terminal"] floating enable
 for_window [class="Gpicview"] border normal
-
-#BANSHEE RATINGS
-#bindsym Mod1+F1 exec banshee --set-rating=1
-#bindsym Mod1+F2 exec banshee --set-rating=2
-#bindsym Mod1+F3 exec banshee --set-rating=3
-#bindsym Mod1+F4 exec banshee --set-rating=4
-#bindsym Mod1+F5 exec banshee --set-rating=5
+bindsym Mod1+F1 exec i3-input -P "What should i3 do? "
+bindsym Shift+Mod1+m exec i3-input -P "Mark: " -F "mark %s"
+bindsym Mod1+m exec i3-input -P "Go to mark: " -F '[con_mark="%s"] focus'
 
 # Multimedia Keys
 # increase volume
@@ -32,19 +25,11 @@ bindsym End exec amixer -q set Master 5%- unmute
 
 #FOR CMUS
 bindsym Insert exec cmus-remote --pause
-# bindsym Prior exec cmus-remote --next
-# bindsym Home exec cmus-remote --prev
-
-# BLOCK SCREEN
-#bindsym F2 exec ~/.scripts/bin/i3lock-fancy
 
 # PRINT SCREENSHOTS
 bindsym Print exec scrot -e 'mv $f ~/temp/'
 
-# REDSHIFT
-# bindsym Pause exec pkill -USR1 redshift
 
-#exec synergys
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -138,15 +123,15 @@ bindsym Mod1+minus scratchpad show
 workspace_auto_back_and_forth yes
 
 #start dual screen
-exec xrandr --output VGA1 --mode 1920x1080 --right-of LVDS1 --output LVDS1 --mode 1440x900
-
-#rename workspaces at start
-exec i3-msg 'rename workspace 1 to "0: vim"'
-exec i3-msg 'rename workspace 10 to "10: music"'
+exec xrandr --output VGA-1 --mode 1920x1080 --right-of LVDS-1 --output LVDS-1 --mode 1440x900
 
 #put workspaces in the monitor they belong
 workspace 1 output VGA
 workspace 10 output LVDS1
+
+#rename workspaces at start
+exec i3-msg 'rename workspace 1 to "0: vim"'
+exec i3-msg 'rename workspace 10 to "10: music"'
 
 #WALLAPPER WITH FEH
 exec feh --bg-scale ~/.wallpaper

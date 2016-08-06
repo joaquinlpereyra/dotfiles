@@ -37,6 +37,7 @@ alias gwg="cd ~/faraday/gui/gtk"
 alias fo="python2 ~/faraday/faraday.py"
 alias fs="python2 ~/faraday/faraday-server.py"
 
+
 alias cat='ccat'
 alias c='xsel -ib'
 alias wid="sudo netctl stop-all"

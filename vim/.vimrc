@@ -117,7 +117,7 @@ let g:syntastic_quiet_messages = {
     \ "regex": ['E402', 'E501']}
 
 let g:syntastic_python_python_exe = 'python2'
-let g:syntastic_python_checkers = ['pyflakes', 'flake8']
+let g:syntastic_python_checkers = ['pep8', 'pyflakes', 'flake8']
 let g:syntastic_enable_signs = 0
 
 nmap <F3> :SyntasticCheck<cr>
