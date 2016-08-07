@@ -148,8 +148,6 @@ exec i3-msg 'rename workspace 10 to "10: music"'
 workspace 1 output VGA
 workspace 10 output LVDS1
 
-#WALLAPPER WITH FEH
-exec feh --bg-scale ~/.wallpaper
 #STARTUP APPLICATIONS
 exec google-chrome-stable
 exec dropbox
