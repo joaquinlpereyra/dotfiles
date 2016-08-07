@@ -8,7 +8,7 @@ $(systemctl enable cronie)
 echo "Do you want to install the wallpaper randomizer with anacron? [y/N]"
 read install
 if [[ $install == "y" || $install == "Y" ]]; then
-    $(sudo sh -c "echo \"@daily 0 wallrandomizer $BASEDIR/wallpaper-randomizer.sh\" >> /etc/anacrontab")
+    $(sudo sh -c "echo \"@daily 0 wallrandomizer $BASEDIR/wall-randomizer.sh\" >> /etc/anacrontab")
 fi
 
 #clone and install dependencies
@@ -31,7 +31,7 @@ fi
 base16_shell_dir="$HOME/.config/base16-shell"
 if [[ ! -d  "$base16_shell_dir" ]]; then 
     git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
-    $(chmod +x ~/.conig/base16-shell/*)
+    $(chmod +x ~/.config/base16-shell/*)
 else
     echo "Looks like you've already got base16-shell"
     echo "If that's not the case, check what's in $base16_shell_dir"

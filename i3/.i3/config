@@ -133,8 +133,6 @@ workspace 10 output LVDS1
 exec i3-msg 'rename workspace 1 to "0: vim"'
 exec i3-msg 'rename workspace 10 to "10: music"'
 
-#WALLAPPER WITH FEH
-exec feh --bg-scale ~/.wallpaper
 #STARTUP APPLICATIONS
 exec google-chrome-stable
 exec dropbox
