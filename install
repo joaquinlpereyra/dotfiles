@@ -8,7 +8,7 @@ $(systemctl enable cronie)
 echo "Do you want to install the wallpaper randomizer with anacron? [y/N]"
 read install
 if [[ $install == "y" || $install == "Y" ]]; then
-    $(sudo sh -c "echo \"@daily 0 wallrandomizer $BASEDIR/wallpaper-randomizer.sh\" >> /etc/anacrontab")
+    $(sudo sh -c "echo \"@daily 0 wallrandomizer $BASEDIR/wall-randomizer.sh\" >> /etc/anacrontab")
 fi
 
 #clone and install dependencies
