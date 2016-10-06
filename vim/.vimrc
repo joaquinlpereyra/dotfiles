@@ -54,6 +54,7 @@ Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-vinegar'
 
 " Programming plugins
+Plugin 'ElmCast/elm-vim'
 Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/syntastic'
 Plugin 'guns/vim-clojure-static'
@@ -102,6 +103,15 @@ let g:mapleader = "\<Space>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Elm
+let g:elm_format_autosave = 1
+let g:elm_setup_keybindings = 0
+let g:elm_make_show_warnings = 1
+let g:elm_syntastic_show_warnings = 1
+
+" g:elm_classic_highlighting = 1
+" let g:elm_classic_highlighting = 1
+
 " Syntastic
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
@@ -128,12 +138,13 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " YouCompleteMe
 
 "" close stupid scratch window automatically
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_server_python_interpreter = '/usr/bin/python2'
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 let g:ycm_complete_in_strings = 1 " Completion in string
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
 
 
 " rebind very useful commands like :YcmCompleter GoTo to :GoTo
