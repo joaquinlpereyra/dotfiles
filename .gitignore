@@ -1,0 +1,11 @@
+vim/.vim/bundle/*
+vim/.vim/colors/*
+vim/.vim/.netrwhist
+ranger/history
+ranger/tagged
+ranger/bookmarks
+ranger/*
+ranger/!ranger
+
+*.swp
+*~

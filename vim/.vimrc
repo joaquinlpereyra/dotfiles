@@ -48,10 +48,13 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'sjl/gundo.vim'
+Plugin 'mbbill/undotree'
 Plugin 'unblevable/quick-scope'
+Plugin 'justinmk/vim-sneak'
+Plugin 'tpope/vim-vinegar'
 
 " Programming plugins
+Plugin 'ElmCast/elm-vim'
 Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/syntastic'
 Plugin 'guns/vim-clojure-static'
@@ -59,6 +62,8 @@ Plugin 'vim-scripts/VimClojure'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
+Plugin 'neovimhaskell/haskell-vim'
+Plugin 'mgedmin/pythonhelper.vim'
 
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
@@ -98,11 +103,19 @@ let g:mapleader = "\<Space>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Elm
+let g:elm_format_autosave = 1
+let g:elm_setup_keybindings = 0
+let g:elm_make_show_warnings = 1
+let g:elm_syntastic_show_warnings = 1
+
+" g:elm_classic_highlighting = 1
+" let g:elm_classic_highlighting = 1
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+""set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -111,9 +124,11 @@ let g:syntastic_mode_map = {
     \ "mode": "passive"}
 
 let g:syntastic_quiet_messages = {
-    \ "regex": '\[E402\]'}
+    \ "regex": ['E402', 'E501']}
 
 let g:syntastic_python_python_exe = 'python2'
+let g:syntastic_python_checkers = ['pep8', 'pyflakes', 'flake8']
+let g:syntastic_enable_signs = 0
 
 nmap <F3> :SyntasticCheck<cr>
 
@@ -123,8 +138,14 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " YouCompleteMe
 
 "" close stupid scratch window automatically
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_strings = 1 " Completion in string
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
+
 
 " rebind very useful commands like :YcmCompleter GoTo to :GoTo
 command GoTo :YcmCompleter GoTo
@@ -132,11 +153,6 @@ command GetDoc :YcmCompleter GetDoc
 command GoDeclaration :YcmCompleter GoToDeclaration
 command GoDefinition :YcmCompleter GoToDefinition
 command GoReferences :YcmCompleter GoToReferences
-
-
-
-" Vinegar
-nmap <F2> :Explore<cr>
 
 " CtrlP
 let g:ctrlp_cmd = 'CtrlPMixed'
@@ -151,9 +167,8 @@ nmap <F4> :TagbarToggle<cr>
 let g:tagbar_sort = 0
 let g:tagbar_autoshowtag = 1
 
-
-" Gundo
-nmap <F5> :GundoToggle<cr>
+" Undo tree
+nmap <F5> :UndotreeToggle<cr>
 
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
@@ -183,28 +198,19 @@ let g:rbpt_colorpairs = [
 " Goyo set F9 to goyo
 nmap <F9> :Goyo<cr>
 
-" Pencil
-"augroup pencil
-"  autocmd!
-"  autocmd FileType markdown,mkd call pencil#init() 
-"  autocmd FileType text         call pencil#init()
-"  autocmd FileType markdown,mkd colorscheme pencil
-"augroup END
-
-let g:markdown_fold_style = 'nested'
-let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-let g:pencil#autoformat = 0      " 0=manual, 1=auto (def)
-let g:pencil#concealcursor = 'n'  " n=normal, v=visual, i=insert, c=command (def)
-let g:pencil_terminal_italics = 1
-
 " Gists
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 
 " vim-airline
+let g:airline_section_x = '%{TagInStatusLine()}'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#syntastic#enabled = 0
+
+" Sneak
+let g:sneak#s_next = 1
+let g:sneak#use_ic_scs = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -236,8 +242,17 @@ nmap <leader>w :w!<cr>
 " (useful for handling the permission-denied error)
 command W w 
 
-"maps F1 to toogle comment line, F2 to NERDTree and F3 to SyntasticCheck
-nmap <F1> gcc
+" remaps to change english-centric keyboard binding to spanish-centric ones
+nnoremap , ;
+nnoremap ; ,
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Python specific
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" remap <leader>i to insert at previous line import ipdb; ipdb.set_trace()
+nnoremap <silent> <leader>i :normal Oimport ipdb; ipdb.set_trace()<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -311,10 +326,6 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Add a bit extra margin to the left
-set foldcolumn=1
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -327,7 +338,7 @@ set colorcolumn=80
 let base16colorspace=256 "for base16-default correct working
 colorscheme base16-chalk
 set background=dark
-
+highlight Comment cterm=italic
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -384,8 +395,8 @@ map j gj
 map k gk
 
 " Map Space to Open/Close folds
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+"vnoremap <Space> zf
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><CR> :noh <CR>
