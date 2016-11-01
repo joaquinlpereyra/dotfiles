@@ -138,7 +138,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " YouCompleteMe
 
 "" close stupid scratch window automatically
-let g:ycm_server_python_interpreter = '/usr/bin/python2'
+" let g:ycm_server_python_interpreter = '/usr/bin/python2'
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 let g:ycm_complete_in_strings = 1 " Completion in string
@@ -336,8 +336,8 @@ syntax enable
 set colorcolumn=80
 
 let base16colorspace=256 "for base16-default correct working
-colorscheme base16-chalk
-set background=dark
+colorscheme solarized
+set background=light
 highlight Comment cterm=italic
 
 " Set extra options when running in GUI mode
