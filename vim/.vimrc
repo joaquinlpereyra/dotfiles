@@ -52,6 +52,7 @@ Plugin 'mbbill/undotree'
 Plugin 'unblevable/quick-scope'
 Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-vinegar'
+Plugin 'altercation/vim-colors-solarized'
 
 " Programming plugins
 Plugin 'ElmCast/elm-vim'
@@ -64,6 +65,12 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'mgedmin/pythonhelper.vim'
+Plugin 'Townk/vim-autoclose'
+
+" JS/Node plugins
+Plugin 'moll/vim-node'
+" Plugin 'jelera/vim-javascript-syntax'
+Plugin 'pangloss/vim-javascript'
 
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
@@ -330,14 +337,15 @@ set tm=500
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 "Set vertical ruler to 80
 set colorcolumn=80
 
 let base16colorspace=256 "for base16-default correct working
-colorscheme solarized
-set background=light
+colorscheme base16-tomorrow-night
+set background=dark
+set term=xterm-256color
 highlight Comment cterm=italic
 
 " Set extra options when running in GUI mode
@@ -355,9 +363,8 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" => Text, tab, fold and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
@@ -369,14 +376,13 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
+" Linebreak on 120 characters
 set lbr
-set tw=500
+set tw=120
 
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -395,8 +401,8 @@ map j gj
 map k gk
 
 " Map Space to Open/Close folds
-"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-"vnoremap <Space> zf
+" nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+" vnoremap <leader>f za
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><CR> :noh <CR>
