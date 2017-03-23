@@ -60,10 +60,11 @@ Plugin 'scrooloose/syntastic'
 Plugin 'guns/vim-clojure-static'
 Plugin 'vim-scripts/VimClojure'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'ajh17/VimCompletesMe'
+Plugin 'vim-scripts/AutoComplPop'
 Plugin 'majutsushi/tagbar'
-Plugin 'neovimhaskell/haskell-vim'
 Plugin 'mgedmin/pythonhelper.vim'
+Plugin 'lukerandall/haskellmode-vim'
 
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
@@ -135,25 +136,6 @@ nmap <F3> :SyntasticCheck<cr>
 " Quick scope
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" YouCompleteMe
-
-"" close stupid scratch window automatically
-let g:ycm_server_python_interpreter = '/usr/bin/python2'
-let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-let g:ycm_complete_in_strings = 1 " Completion in string
-let g:ycm_semantic_triggers = {
-     \ 'elm' : ['.'],
-     \}
-
-
-" rebind very useful commands like :YcmCompleter GoTo to :GoTo
-command GoTo :YcmCompleter GoTo
-command GetDoc :YcmCompleter GetDoc
-command GoDeclaration :YcmCompleter GoToDeclaration
-command GoDefinition :YcmCompleter GoToDefinition
-command GoReferences :YcmCompleter GoToReferences
-
 " CtrlP
 let g:ctrlp_cmd = 'CtrlPMixed'
 nmap <leader>o :CtrlP<cr>
@@ -166,6 +148,9 @@ endif
 nmap <F4> :TagbarToggle<cr>
 let g:tagbar_sort = 0
 let g:tagbar_autoshowtag = 1
+
+" Haskell
+let g:haddock_browser='/usr/bin/google-chrome-stable'
 
 " Undo tree
 nmap <F5> :UndotreeToggle<cr>
