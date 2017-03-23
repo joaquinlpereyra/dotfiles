@@ -27,11 +27,13 @@ open_all_python() {
     fi
 }
 
+
 # Aliases
 alias vimpy=open_all_python
  
 alias vim="mvim"  # silly macs
-alias ls='/usr/local/bin/gls --color  -h --group-directories-first' # stupid mac 
+alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac 
+
 
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -59,5 +61,6 @@ export EDITOR=vim
 # eval $(dircolors -b $HOME/.dircolors)
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/jlpereyra/.sdkman"
-[[ -s "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh"
+#Or not, I just created the symbolic links
+# [[ -s "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" > /dev/null 2>/dev/null
+# export SDKMAN_DIR="/Users/jlpereyra/.sdkman"
