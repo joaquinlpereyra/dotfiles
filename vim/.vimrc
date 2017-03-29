@@ -327,10 +327,8 @@ syntax enable
 set colorcolumn=80
 
 let base16colorspace=256 "for base16-default correct working
-colorscheme base16-tomorrow-night
+colorscheme base16-chalk
 set background=dark
-set term=xterm-256color
-highlight Comment cterm=italic
 
 " Set extra options when running in GUI mode
 if has("gui_running")

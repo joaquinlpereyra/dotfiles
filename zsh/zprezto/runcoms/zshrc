@@ -31,11 +31,11 @@ open_all_python() {
 # Aliases
 alias vimpy=open_all_python
  
-alias vim="mvim"  # silly macs
+alias vim="/usr/local/Cellar/vim/8.0.0502/bin/vim" # stupid mac 
 alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac 
 
-
 if [ -x /usr/bin/dircolors ]; then
+    eval $(dircolors -b $HOME/.dircolors)
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto --group-directories-first --sort=extension'
     alias dir='dir --color=auto'
@@ -46,8 +46,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-unalias rm # cause Prezto think its a good idea to use rm -i by default
+if [[ "$(uname)" == "Darwin" ]]; then
+    alias vsplit="osascript ~/.dotfiles/iterm/vsplit"
+    alias split="osascript ~/.dotfiles/iterm/split"
+fi
 
+unalias rm # cause Prezto think its a good idea to use rm -i by default
 
 #Enviorenment Variables
 export TERM=xterm-256color
@@ -55,12 +59,11 @@ export VISUAL=vim
 export EDITOR=vim
 
 
-# silly macs
-# BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
-# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-# eval $(dircolors -b $HOME/.dircolors)
+# silly macs
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 #Or not, I just created the symbolic links
-# [[ -s "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" > /dev/null 2>/dev/null
-# export SDKMAN_DIR="/Users/jlpereyra/.sdkman"
+[[ -s "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" > /dev/null 2>/dev/null
+export SDKMAN_DIR="/Users/jlpereyra/.sdkman"
