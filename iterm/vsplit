@@ -1,0 +1,5 @@
+tell application "iTerm2"
+  tell current session of current window
+    split vertically with default profile
+  end tell
+end tell

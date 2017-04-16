@@ -52,6 +52,7 @@ Plugin 'mbbill/undotree'
 Plugin 'unblevable/quick-scope'
 Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-vinegar'
+Plugin 'altercation/vim-colors-solarized'
 
 " Programming plugins
 Plugin 'ElmCast/elm-vim'
@@ -64,7 +65,12 @@ Plugin 'ajh17/VimCompletesMe'
 Plugin 'vim-scripts/AutoComplPop'
 Plugin 'majutsushi/tagbar'
 Plugin 'mgedmin/pythonhelper.vim'
+Plugin 'Townk/vim-autoclose'
 Plugin 'lukerandall/haskellmode-vim'
+
+" JS/Node plugins
+Plugin 'moll/vim-node'
+Plugin 'pangloss/vim-javascript'
 
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
@@ -316,7 +322,7 @@ set tm=500
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 "Set vertical ruler to 80
 set colorcolumn=80
@@ -324,7 +330,6 @@ set colorcolumn=80
 let base16colorspace=256 "for base16-default correct working
 colorscheme base16-chalk
 set background=dark
-highlight Comment cterm=italic
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -341,9 +346,8 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" => Text, tab, fold and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
@@ -355,14 +359,13 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
+" Linebreak on 120 characters
 set lbr
-set tw=500
+set tw=120
 
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -381,8 +384,8 @@ map j gj
 map k gk
 
 " Map Space to Open/Close folds
-"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-"vnoremap <Space> zf
+" nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+" vnoremap <leader>f za
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><CR> :noh <CR>
