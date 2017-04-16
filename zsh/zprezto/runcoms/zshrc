@@ -10,6 +10,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+PATH=$PATH:~/.scripts/bin/
+PATH=$PATH:~/.npm-global/bin/
+export PAGER=less
+
 # Functions
 open_all_python() {
     # Search all python non-dunder files. If any is found, open them in vim
@@ -27,6 +31,25 @@ open_all_python() {
     fi
 }
 
+alarm() {
+    time_=$1
+    message=$2
+    if [[ -z "$time_" ]]; then
+        time_=$((60*5))
+    fi
+    curl -so "/tmp/alarm" "http://soundbible.com/grab.php?id=1746&type=wav" & disown
+    if [[ -f "/tmp/alarm" ]]; then
+        sound="/tmp/alarm"
+    else
+        sound="/dev/urandom"
+    fi
+    alarm_prompt="\n---------- ALARM ----------\n"
+    if [[ "$message" != "" ]]; then
+        alarm_prompt+="Remember: $message \n"
+    fi
+    (sleep "$time_" && echo "$alarm_prompt" && aplay -q "$sound" -d 2) & disown
+}
+
 # Aliases
 alias vimpy=open_all_python
 
@@ -41,7 +64,7 @@ alias fs="python2 ~/faraday/faraday-server.py"
 alias cat='ccat'
 alias c='xsel -ib'
 alias wid="sudo netctl stop-all"
-alias wiu="sudo netctl start McLovyn-Good"
+alias scrot='scrot ~/temp/scrot_%M-%H-%a-%b-%y.png'
 
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -65,3 +88,7 @@ export EDITOR=vim
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 eval $(dircolors -b $HOME/.dircolors)
+
+# #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="/home/joaquin/.sdkman"
+# [[ -s "/home/joaquin/.sdkman/bin/sdkman-init.sh" ]] && source "/home/joaquin/.sdkman/bin/sdkman-init.sh"

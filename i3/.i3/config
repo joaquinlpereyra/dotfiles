@@ -123,20 +123,11 @@ bindsym Mod1+minus scratchpad show
 workspace_auto_back_and_forth yes
 
 #start dual screen
-exec xrandr --output VGA-1 --mode 1920x1080 --right-of LVDS-1 --output LVDS-1 --mode 1440x900
-
-#put workspaces in the monitor they belong
-workspace 1 output VGA
-workspace 10 output LVDS1
-
-#rename workspaces at start
-exec i3-msg 'rename workspace 1 to "0: vim"'
-exec i3-msg 'rename workspace 10 to "10: music"'
+exec xrandr --output VGA-1 --mode 1920x1080
 
 #STARTUP APPLICATIONS
 exec google-chrome-stable
 exec dropbox
-exec xautolock -time 5 -locker /usr/local/bin/lock/lock
 exec gnome-terminal
 
 # switch to workspace

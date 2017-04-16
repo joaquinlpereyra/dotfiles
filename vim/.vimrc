@@ -139,6 +139,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " CtrlP
 let g:ctrlp_cmd = 'CtrlPMixed'
 nmap <leader>o :CtrlP<cr>
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
