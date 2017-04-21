@@ -26,14 +26,10 @@ open_all_python() {
         vim $py_files $args
     fi
 }
-
-
+#
 # Aliases
 alias vimpy=open_all_python
  
-alias vim="/usr/local/Cellar/vim/8.0.0502/bin/vim" # stupid mac 
-alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac 
-
 if [ -x /usr/bin/dircolors ]; then
     eval $(dircolors -b $HOME/.dircolors)
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -47,6 +43,8 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 if [[ "$(uname)" == "Darwin" ]]; then
+    alias vim="/usr/local/Cellar/vim/8.0.0502/bin/vim" # stupid mac 
+    alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac 
     alias vsplit="osascript ~/.dotfiles/iterm/vsplit"
     alias split="osascript ~/.dotfiles/iterm/split"
 fi
@@ -58,8 +56,6 @@ export TERM=xterm-256color
 export VISUAL=vim
 export EDITOR=vim
 
-
-# silly macs
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
