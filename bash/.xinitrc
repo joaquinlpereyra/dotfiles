@@ -21,7 +21,7 @@ else
     export BROWSER=links
 fi
 
-exec dbus-launch i3
+# exec dbus-launch i3
 # exec startlxde
 # exec gnome-session
 # exec startkde

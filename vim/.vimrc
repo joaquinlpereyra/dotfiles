@@ -74,6 +74,8 @@ Plugin 'pangloss/vim-javascript'
 
 " Writing plugins
 Plugin 'junegunn/goyo.vim'
+Plugin 'reedes/vim-lexical'
+
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
@@ -211,6 +213,15 @@ let g:sneak#use_ic_scs = 1
 set backupdir=~/.swp-folder
 set directory=~/.swp-folder
 
+" Stop delayed escape
+set timeoutlen=250
+set ttimeoutlen=0
+
+" Set spell check in English
+set spelllang=en
+set spellfile=$HOME/.dotfiles/vim/en.utf-8.add
+map <leader>ss :setlocal spell!<cr>
+
 "Hide default mode indicator, vim-airline does this already
 set noshowmode
 
@@ -237,6 +248,22 @@ command W w
 " remaps to change english-centric keyboard binding to spanish-centric ones
 nnoremap , ;
 nnoremap ; ,
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Only when writing prose
+
+augroup lexical
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType textile call lexical#init()
+  autocmd FileType text call lexical#init({ 'spell': 0 })
+
+  let g:lexical#thesaurus = ['~/.dotfiles/vim/words.txt',]
+  let g:lexical#spellfile = ['~/.dotfiles/vim/en.utf-8.add',]
+  let g:lexical#spell_key = '<leader>s'
+  let g:lexical#thesaurus_key = '<leader>t'
+  let g:lexical#dictionary_key = 'jleader>k'
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Python specific
@@ -312,11 +339,11 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-set t_vb=
-set tm=500
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -329,6 +356,9 @@ set colorcolumn=80
 
 let base16colorspace=256 "for base16-default correct working
 colorscheme base16-chalk
+" let g:solarized_termcolors=256
+" let g:solarized_termtrans=1
+" colorscheme solarized
 set background=dark
 
 " Set extra options when running in GUI mode
@@ -339,6 +369,7 @@ if has("gui_running")
     set t_Co=256
     set guitablabel=%M\ %t
 endif
+
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -374,6 +405,7 @@ set wrap "Wrap lines
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -423,6 +455,7 @@ autocmd BufReadPost *
 set viminfo^=%
 
 
+
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
@@ -454,7 +487,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -515,3 +548,4 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+"

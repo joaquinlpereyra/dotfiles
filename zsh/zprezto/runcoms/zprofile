@@ -20,6 +20,17 @@ fi
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
+export TERMINAL='xfce4-terminal'
+
+export PATH=$PATH:~/scripts/bin/
+export PATH=$PATH:~/.npm-global/bin 
+export PATH=$PATH:~/.gem/ruby/2.4.0/bin/ 
+export PATH=$PATH:~/.cabal/bin/
+export PATH=$PATH:/usr/local/go/bin
+
+export GOPATH=~/.go/
+export GOPATH=$GOPATH:~/fury_afip/
+export PATH=$PATH:~/.go/bin/
 
 #
 # Language
