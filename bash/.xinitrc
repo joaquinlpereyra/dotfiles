@@ -11,8 +11,16 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-setxkbmap es -option "caps:swapescape,lv3:ralt_switch,esperanto:qwerty"
-xmodmap ~/.dotfiles/capstoescape
+setxkbmap es
+xmodmap /home/joaquin/.dotfiles/capstoescape
+export DE="i3"
+
+if [ -n "$DISPLAY" ]; then
+    export BROWSER=google-chrome-stable
+else 
+    export BROWSER=links
+fi
+
 exec dbus-launch i3
 # exec startlxde
 # exec gnome-session
