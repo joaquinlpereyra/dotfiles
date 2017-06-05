@@ -55,6 +55,30 @@ alarm() {
     fi
 }
 
+post() {
+    shortdate=$(date "+%Y-%m-%d")
+    date=$(date "+%Y-%m-%d %H:%M:%S")
+    title=$1
+    title_mod=${1// /-}
+    title_mod=${title_mod//,/}
+    categories=${2//,/ }
+    post_path="$HOME/blogcito/_posts/$shortdate-$title_mod.md" 
+    if [[ ! -f $post_path ]]; then
+        string="---\nlayout: post\ntitle: $title\ndate: $date\ncategories: $categories\n---"
+        echo "$string" >> "$post_path"
+    fi
+
+    vim $post_path
+
+    printf "Upload post? [N/y]: "
+    read ans
+    if [[ "$ans" == "y" ]]; then
+        git add $post_path
+        git commit -m "created post $title"
+        git push origin master
+    fi
+}
+
 # Aliases
 alias vimpy=open_all_python
 alias cu="sudo systemctl start couchdb"
@@ -70,7 +94,6 @@ if [[ $is_mac == false ]]; then
     alias wid="sudo netctl stop-all"
     alias scrot='scrot ~/temp/scrot_%M-%H-%a-%b-%y.png'
 fi
- 
 if [[ -x /usr/bin/dircolors && $is_mac == false ]]; then
     eval $(dircolors -b $HOME/.dircolors)
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -93,10 +116,12 @@ fi
 
 unalias rm # cause Prezto think its a good idea to use rm -i by default
 
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-if [[ $is_mac == false ]]; then
-    eval $(dircolors -b $HOME/.dircolors)
+if [[ $is_mac == true ]]; then
+    BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
+    [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+else 
+    BASE16_SHELL=$HOME/.config/base16-shell/
+    [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

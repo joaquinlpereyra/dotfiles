@@ -7,18 +7,25 @@
 
 # Browser
 
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-fi
-
-# Editors
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
-export TERM=xterm-256color
-export GOPATH="$HOME/.go"
+export GOPATH=$GOPATH:~/fury_afip/
 export PATH="$PATH:$HOME/.scripts/bin/:$HOME/.npm-global/bin:$GOPATH/bin"
-export GOPATH=$GOPATH:$HOME/fury_afip/
+export GOPATH="$HOME/.go/"
+
+if [[ "$OSTYPE" == darwin* ]]; then
+    export BROWSER='open'
+    export TERM=xterm-256color
+else 
+    export GOPATH="$HOME/.go"
+    export TERMINAL='xfce4-terminal'
+    export PATH=$PATH:~/.gem/ruby/2.4.0/bin/ 
+    export PATH=$PATH:~/.cabal/bin/
+    export PATH=$PATH:/usr/local/go/bin
+fi
+
+# Editors
 
 # Language
 
