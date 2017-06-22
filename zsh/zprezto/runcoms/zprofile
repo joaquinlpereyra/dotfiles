@@ -5,44 +5,35 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-#
 # Browser
-#
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-fi
-
-#
-# Editors
-#
 
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
-export TERMINAL='xfce4-terminal'
-
-export PATH=$PATH:~/scripts/bin/
-export PATH=$PATH:~/.npm-global/bin 
-export PATH=$PATH:~/.gem/ruby/2.4.0/bin/ 
-export PATH=$PATH:~/.cabal/bin/
-export PATH=$PATH:/usr/local/go/bin
-
-export GOPATH=~/.go/
 export GOPATH=$GOPATH:~/fury_afip/
-export PATH=$PATH:~/.go/bin/
+export PATH="$PATH:$HOME/.scripts/bin/:$HOME/.npm-global/bin:$GOPATH/bin"
+export GOPATH="$HOME/.go/"
 
-#
+if [[ "$OSTYPE" == darwin* ]]; then
+    export BROWSER='open'
+    export TERM=xterm-256color
+else 
+    export GOPATH="$HOME/.go"
+    export TERMINAL='xfce4-terminal'
+    export PATH=$PATH:~/.gem/ruby/2.4.0/bin/ 
+    export PATH=$PATH:~/.cabal/bin/
+    export PATH=$PATH:/usr/local/go/bin
+fi
+
+# Editors
+
 # Language
-#
 
 if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
 
-#
 # Paths
-#
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
@@ -57,6 +48,17 @@ path=(
   /usr/local/{bin,sbin}
   $path
 )
+
+# Aliases
+if [[ "$OSTYPE" == darwin* ]]; then
+    alias vim="/usr/local/Cellar/vim/8.0.0502/bin/vim" # stupid mac 
+    alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac 
+    alias vsplit="osascript ~/.dotfiles/iterm/vsplit"
+    alias split="osascript ~/.dotfiles/iterm/split"
+    alias emacs="/usr/local/Cellar/emacs/25.2/Emacs.app/Contents/MacOS/Emacs"
+    alias google-chrome-stable="open -a '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'"
+fi
+
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
