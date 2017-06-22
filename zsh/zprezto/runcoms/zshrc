@@ -57,6 +57,7 @@ post() {
     post_path="$HOME/blogcito/_posts/$shortdate-$title_mod.md" 
     if [[ ! -f $post_path ]]; then
         string="---\nlayout: post\ntitle: $title\ndate: $date\ncategories: $categories\n---"
+        touch "$post_path"
         echo "$string" >> "$post_path"
     fi
 
@@ -71,19 +72,17 @@ post() {
     fi
 }
 
-# Aliases
+# Aliases (General)
 alias vimpy=open_all_python
-alias cu="sudo systemctl start couchdb"
-alias ck="sudo systemctl stop couchdb"
-alias gw="cd ~/faraday/"
-alias gwg="cd ~/faraday/gui/gtk"
-alias fo="python2 ~/faraday/faraday.py"
-alias fs="python2 ~/faraday/faraday-server.py"
+
+# Aliases (Docker)
+dbash() { docker exec -it $(docker ps -aqf name="$1") bash; }
+did() { docker ps -aqf name="$1" }
+alias dl="docker ps -l -q"
+alias dexec="docker exec -it $(dl) "
+
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    alias cat='ccat'
-    alias c='xsel -ib'
-    alias wid="sudo netctl stop-all"
     alias scrot='scrot ~/temp/scrot_%M-%H-%a-%b-%y.png'
 fi
 
