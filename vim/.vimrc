@@ -46,35 +46,16 @@ Bundle 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mbbill/undotree'
 Plugin 'unblevable/quick-scope'
 Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-vinegar'
-Plugin 'altercation/vim-colors-solarized'
 
 " Programming plugins
-Plugin 'ElmCast/elm-vim'
 Plugin 'tpope/vim-commentary'
-Plugin 'scrooloose/syntastic'
-Plugin 'guns/vim-clojure-static'
-Plugin 'vim-scripts/VimClojure'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'ajh17/VimCompletesMe'
-Plugin 'vim-scripts/AutoComplPop'
 Plugin 'majutsushi/tagbar'
-Plugin 'mgedmin/pythonhelper.vim'
-Plugin 'Townk/vim-autoclose'
-Plugin 'lukerandall/haskellmode-vim'
-
-" JS/Node plugins
-Plugin 'moll/vim-node'
-Plugin 'pangloss/vim-javascript'
-
-" Writing plugins
-Plugin 'junegunn/goyo.vim'
-Plugin 'reedes/vim-lexical'
 
 
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -112,38 +93,6 @@ let g:mapleader = "\<Space>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Elm
-let g:elm_format_autosave = 1
-let g:elm_setup_keybindings = 0
-let g:elm_make_show_warnings = 1
-let g:elm_syntastic_show_warnings = 1
-
-" g:elm_classic_highlighting = 1
-" let g:elm_classic_highlighting = 1
-
-" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-""set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-
-let g:syntastic_mode_map = {
-    \ "mode": "passive"}
-
-let g:syntastic_quiet_messages = {
-    \ "regex": ['E402', 'E501']}
-
-let g:syntastic_python_python_exe = 'python2'
-let g:syntastic_python_checkers = ['pep8', 'pyflakes', 'flake8']
-let g:syntastic_enable_signs = 0
-
-nmap <F3> :SyntasticCheck<cr>
-
-" Quick scope
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
 " CtrlP
 let g:ctrlp_cmd = 'CtrlPMixed'
 nmap <leader>o :CtrlP<cr>
@@ -157,12 +106,6 @@ endif
 nmap <F4> :TagbarToggle<cr>
 let g:tagbar_sort = 0
 let g:tagbar_autoshowtag = 1
-
-" Haskell
-let g:haddock_browser='/usr/bin/google-chrome-stable'
-
-" Undo tree
-nmap <F5> :UndotreeToggle<cr>
 
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
@@ -189,22 +132,15 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
-" Goyo set F9 to goyo
-nmap <F9> :Goyo<cr>
-
 " Gists
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 
 " vim-airline
-let g:airline_section_x = '%{TagInStatusLine()}'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#syntastic#enabled = 0
-
-" Sneak
-let g:sneak#s_next = 1
-let g:sneak#use_ic_scs = 1
+" let g:airline_section_x = '%{TagInStatusLine()}'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#syntastic#enabled = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -241,9 +177,9 @@ set autoread
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w 
+command W w
 
 " remaps to change english-centric keyboard binding to spanish-centric ones
 nnoremap , ;
@@ -318,7 +254,7 @@ endif
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
@@ -344,7 +280,6 @@ set mat=2
 set noerrorbells
 set novisualbell
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -354,11 +289,14 @@ syntax enable
 "Set vertical ruler to 80
 set colorcolumn=80
 
-let base16colorspace=256 "for base16-default correct working
+" Set themes and niceness
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 colorscheme base16-chalk
-" let g:solarized_termcolors=256
-" let g:solarized_termtrans=1
-" colorscheme solarized
+set t_Co=256
 set background=dark
 
 " Set extra options when running in GUI mode
@@ -369,7 +307,6 @@ if has("gui_running")
     set t_Co=256
     set guitablabel=%M\ %t
 endif
-
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -439,7 +376,7 @@ map <leader>bd :Bclose<cr>
 map <leader>m :bn<cr>
 map <leader>n :bp<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -496,7 +433,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"

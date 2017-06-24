@@ -5,12 +5,6 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # enable cronie
 $(systemctl enable cronie)
 
-echo "Do you want to install the wallpaper randomizer with anacron? [y/N]"
-read install
-if [[ $install == "y" || $install == "Y" ]]; then
-    $(sudo sh -c "echo \"@daily 0 wallrandomizer $BASEDIR/wall-randomizer.sh\" >> /etc/anacrontab")
-fi
-
 #clone and install dependencies
 
 # GNOME TERMINAL COLORS
@@ -64,6 +58,10 @@ ln -sf ${BASEDIR}/ranger/ ~/.config/ranger
 #zsh
 echo 'symlinkgin zsh prezto. I need to remove ~/.zprezto'
 ln -sf ${BASEDIR}/zsh/zprezto ~/.zprezto
+setopt EXTENDED_GLOB
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+done
 
 #wallpapers randomizer
 echo "setting up a random wallpaper from you <3"

@@ -11,7 +11,7 @@ export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
 export GOPATH=$GOPATH:~/fury_afip/
-export PATH="$PATH:$HOME/.scripts/bin/:$HOME/.npm-global/bin:$GOPATH/bin"
+export PATH="$PATH:$HOME/.bin/:$HOME/.npm-global/bin:$GOPATH/bin"
 export GOPATH="$HOME/.go/"
 
 if [[ "$OSTYPE" == darwin* ]]; then
@@ -19,7 +19,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
     export TERM=xterm-256color
 else 
     export GOPATH="$HOME/.go"
-    export TERMINAL='xfce4-terminal'
+    export TERMINAL='gnome-terminal'
     export PATH=$PATH:~/.gem/ruby/2.4.0/bin/ 
     export PATH=$PATH:~/.cabal/bin/
     export PATH=$PATH:/usr/local/go/bin

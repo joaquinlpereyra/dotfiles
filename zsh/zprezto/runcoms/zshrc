@@ -27,7 +27,7 @@ open_all_python() {
     fi
 
     py_files=($dir/[^__]*.py(N))
-    if [[ -n "$py_files" ]]; then 
+    if [[ -n "$py_files" ]]; then
         vim $py_files $args
     fi
 }
@@ -50,7 +50,7 @@ alarm() {
     fi
     if [[ $is_mac == true ]]; then
         (sleep "$time_" && echo "$alarm_prompt" && sox -q "$sound" -d 2) & disown
-    else 
+    else
         (sleep "$time_" && echo "$alarm_prompt" && aplay -q "$sound" -d 2) & disown
     fi
 }
@@ -62,7 +62,7 @@ post() {
     title_mod=${1// /-}
     title_mod=${title_mod//,/}
     categories=${2//,/ }
-    post_path="$HOME/blogcito/_posts/$shortdate-$title_mod.md" 
+    post_path="$HOME/blogcito/_posts/$shortdate-$title_mod.md"
     if [[ ! -f $post_path ]]; then
         string="---\nlayout: post\ntitle: $title\ndate: $date\ncategories: $categories\n---"
         touch "$post_path"
@@ -110,8 +110,8 @@ if [[ -x /usr/bin/dircolors && $is_mac == false ]]; then
 fi
 
 if [[ $is_mac == true ]]; then
-    alias vim="/usr/local/Cellar/vim/8.0.0502/bin/vim" # stupid mac 
-    alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac 
+    alias vim="/usr/local/Cellar/vim/8.0.0502/bin/vim" # stupid mac
+    alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac
     alias vsplit="osascript ~/.dotfiles/iterm/vsplit"
     alias split="osascript ~/.dotfiles/iterm/split"
     alias emacs="/usr/local/Cellar/emacs/25.2/Emacs.app/Contents/MacOS/Emacs"
@@ -122,7 +122,7 @@ unalias rm # cause Prezto think its a good idea to use rm -i by default
 if [[ $is_mac == true ]]; then
     BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
     [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-else 
+else
     BASE16_SHELL=$HOME/.config/base16-shell/
     [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 fi

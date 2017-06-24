@@ -43,8 +43,7 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec i3-sensible-terminal
-
+bindsym Mod1+Return exec gnome-terminal
 # kill focused window
 bindsym Mod1+Shift+q kill
 
@@ -123,10 +122,10 @@ bindsym Mod1+minus scratchpad show
 workspace_auto_back_and_forth yes
 
 #start dual screen
-exec xrandr --output VGA-1 --mode 1920x1080
+# exec xrandr --output VGA-1 --mode 1920x1080
 exec --no-startup-id xfce4-panel --disable-wm-check
 exec ~/.dotfiles/wall-randomizer.sh
-exec ~/.dotfiles/capstoescape
+exec xmodmap ~/.dotfiles/capstoescape
 
 #STARTUP APPLICATIONS
 exec google-chrome-stable
