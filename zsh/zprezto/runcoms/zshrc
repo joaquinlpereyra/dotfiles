@@ -10,53 +10,126 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+is_mac=false
+if [[ "$OSTYPE" == 'darwin15.0' ]]; then
+    is_mac=true
+fi
 
-# ls, we love you more than anything else
-#if [ -x /usr/bin/dircolors ]; then
-#    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-#fi
+# Functions
+open_all_python() {
+    # Search all python non-dunder files. If any is found, open them in vim
+    if [[ -n "$1" && -d "$1" ]]; then
+        dir=$1
+        args=$2
+    else
+        dir="."
+        args="$1"
+    fi
 
-if [ -x /usr/bin/dircolors ]; then
+    py_files=($dir/[^__]*.py(N))
+    if [[ -n "$py_files" ]]; then
+        vim $py_files $args
+    fi
+}
+
+alarm() {
+    time_=$1
+    message=$2
+    if [[ -z "$time_" ]]; then
+        time_=$((60*5))
+    fi
+    curl -so "/tmp/alarm" "http://soundbible.com/grab.php?id=1746&type=wav" & disown
+    if [[ -f "/tmp/alarm" ]]; then
+        sound="/tmp/alarm"
+    else
+        sound="/dev/urandom"
+    fi
+    alarm_prompt="\n---------- ALARM ----------\n"
+    if [[ "$message" != "" ]]; then
+        alarm_prompt+="Remember: $message \n"
+    fi
+    if [[ $is_mac == true ]]; then
+        (sleep "$time_" && echo "$alarm_prompt" && sox -q "$sound" -d 2) & disown
+    else
+        (sleep "$time_" && echo "$alarm_prompt" && aplay -q "$sound" -d 2) & disown
+    fi
+}
+
+post() {
+    shortdate=$(date "+%Y-%m-%d")
+    date=$(date "+%Y-%m-%d %H:%M:%S")
+    title=$1
+    title_mod=${1// /-}
+    title_mod=${title_mod//,/}
+    categories=${2//,/ }
+    post_path="$HOME/blogcito/_posts/$shortdate-$title_mod.md"
+    if [[ ! -f $post_path ]]; then
+        string="---\nlayout: post\ntitle: $title\ndate: $date\ncategories: $categories\n---"
+        touch "$post_path"
+        echo "$string" >> "$post_path"
+    fi
+
+    vim $post_path
+
+    printf "Upload post? [N/y]: "
+    read ans
+    if [[ "$ans" == "y" ]]; then
+        git add $post_path
+        git commit -m "created post $title"
+        git push origin master
+    fi
+}
+
+# Aliases (General)
+alias vimpy=open_all_python
+
+# Aliases (Docker)
+dbash() { docker exec -it $(docker ps -aqf name="$1") bash; }
+did() { docker ps -aqf name="$1" }
+alias dl="docker ps -l -q"
+alias dexec="docker exec -it $(dl) "
+
+
+if [[ $is_mac == false ]]; then
+    alias cat='ccat'
+    alias c='xsel -ib'
+    alias wid="sudo netctl stop-all"
+    alias scrot='scrot ~/temp/scrot_%M-%H-%a-%b-%y.png'
+fi
+
+if [[ -x /usr/bin/dircolors && $is_mac == false ]]; then
+    eval $(dircolors -b $HOME/.dircolors)
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto --group-directories-first --sort=extension'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
 
-open_all_python() {
-    # Search all python non-dunder files. If any is found, open them in vim
-    if [[ -n "$1" ]]; then
-        dir=$1
-    else
-        dir="."
-    fi
-
-    py_files=($dir/[^__]*.py(N))
-    if [[ -n "$py_files" ]]; then 
-        vim $py_files
-    fi
-}
-
-alias vimpy=open_all_python
-alias cat='ccat'
-alias c='xsel -ib'
-alias cu="sudo systemctl start couchdb"
-alias ck="sudo systemctl stop couchdb"
-alias gw="cd ~/faraday-assembla/faraday/"
-alias gwg="cd ~/faraday-assembla/faraday/gui/gtk"
-
-export TERM=xterm-256color
-export VISUAL=vim
-export EDITOR=vim
+if [[ $is_mac == true ]]; then
+    alias vim="/usr/local/Cellar/vim/8.0.0502/bin/vim" # stupid mac
+    alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac
+    alias vsplit="osascript ~/.dotfiles/iterm/vsplit"
+    alias split="osascript ~/.dotfiles/iterm/split"
+    alias emacs="/usr/local/Cellar/emacs/25.2/Emacs.app/Contents/MacOS/Emacs"
+fi
 
 unalias rm # cause Prezto think its a good idea to use rm -i by default
 
-BASE16_SHELL="$HOME/.config/base16-shell/base16-chalk.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-eval $(dircolors -b $HOME/.dircolors)
+if [[ $is_mac == true ]]; then
+    BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-chalk.sh"
+    [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+else
+    BASE16_SHELL=$HOME/.config/base16-shell/
+    [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+fi
 
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+#Or not, I just created the symbolic links
+if [[ $is_mac = true ]]; then
+    [[ -s "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" > /dev/null 2>/dev/null
+    export SDKMAN_DIR="/Users/jlpereyra/.sdkman"
+fi

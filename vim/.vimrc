@@ -46,22 +46,17 @@ Bundle 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'sjl/gundo.vim'
+Plugin 'mbbill/undotree'
 Plugin 'unblevable/quick-scope'
+Plugin 'justinmk/vim-sneak'
+Plugin 'tpope/vim-vinegar'
 
 " Programming plugins
 Plugin 'tpope/vim-commentary'
-Plugin 'scrooloose/syntastic'
-Plugin 'guns/vim-clojure-static'
-Plugin 'vim-scripts/VimClojure'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 
-" Writing plugins
-Plugin 'junegunn/goyo.vim'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
@@ -98,49 +93,10 @@ let g:mapleader = "\<Space>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-
-let g:syntastic_mode_map = {
-    \ "mode": "passive"}
-
-let g:syntastic_quiet_messages = {
-    \ "regex": '\[E402\]'}
-
-let g:syntastic_python_python_exe = 'python2'
-
-nmap <F3> :SyntasticCheck<cr>
-
-" Quick scope
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-" YouCompleteMe
-
-"" close stupid scratch window automatically
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-
-" rebind very useful commands like :YcmCompleter GoTo to :GoTo
-command GoTo :YcmCompleter GoTo
-command GetDoc :YcmCompleter GetDoc
-command GoDeclaration :YcmCompleter GoToDeclaration
-command GoDefinition :YcmCompleter GoToDefinition
-command GoReferences :YcmCompleter GoToReferences
-
-
-
-" Vinegar
-nmap <F2> :Explore<cr>
-
 " CtrlP
 let g:ctrlp_cmd = 'CtrlPMixed'
 nmap <leader>o :CtrlP<cr>
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -150,10 +106,6 @@ endif
 nmap <F4> :TagbarToggle<cr>
 let g:tagbar_sort = 0
 let g:tagbar_autoshowtag = 1
-
-
-" Gundo
-nmap <F5> :GundoToggle<cr>
 
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
@@ -180,31 +132,15 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
-" Goyo set F9 to goyo
-nmap <F9> :Goyo<cr>
-
-" Pencil
-"augroup pencil
-"  autocmd!
-"  autocmd FileType markdown,mkd call pencil#init() 
-"  autocmd FileType text         call pencil#init()
-"  autocmd FileType markdown,mkd colorscheme pencil
-"augroup END
-
-let g:markdown_fold_style = 'nested'
-let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-let g:pencil#autoformat = 0      " 0=manual, 1=auto (def)
-let g:pencil#concealcursor = 'n'  " n=normal, v=visual, i=insert, c=command (def)
-let g:pencil_terminal_italics = 1
-
 " Gists
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 
 " vim-airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
+" let g:airline_section_x = '%{TagInStatusLine()}'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#syntastic#enabled = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -212,6 +148,15 @@ let g:airline#extensions#tagbar#enabled = 1
 " Set folder to save .swp backups
 set backupdir=~/.swp-folder
 set directory=~/.swp-folder
+
+" Stop delayed escape
+set timeoutlen=250
+set ttimeoutlen=0
+
+" Set spell check in English
+set spelllang=en
+set spellfile=$HOME/.dotfiles/vim/en.utf-8.add
+map <leader>ss :setlocal spell!<cr>
 
 "Hide default mode indicator, vim-airline does this already
 set noshowmode
@@ -232,12 +177,37 @@ set autoread
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w 
+command W w
 
-"maps F1 to toogle comment line, F2 to NERDTree and F3 to SyntasticCheck
-nmap <F1> gcc
+" remaps to change english-centric keyboard binding to spanish-centric ones
+nnoremap , ;
+nnoremap ; ,
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Only when writing prose
+
+augroup lexical
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType textile call lexical#init()
+  autocmd FileType text call lexical#init({ 'spell': 0 })
+
+  let g:lexical#thesaurus = ['~/.dotfiles/vim/words.txt',]
+  let g:lexical#spellfile = ['~/.dotfiles/vim/en.utf-8.add',]
+  let g:lexical#spell_key = '<leader>s'
+  let g:lexical#thesaurus_key = '<leader>t'
+  let g:lexical#dictionary_key = 'jleader>k'
+augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Python specific
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" remap <leader>i to insert at previous line import ipdb; ipdb.set_trace()
+nnoremap <silent> <leader>i :normal Oimport ipdb; ipdb.set_trace()<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -284,7 +254,7 @@ endif
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
@@ -305,29 +275,29 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-set t_vb=
-set tm=500
-
-" Add a bit extra margin to the left
-set foldcolumn=1
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 "Set vertical ruler to 80
 set colorcolumn=80
 
-let base16colorspace=256 "for base16-default correct working
-colorscheme base16-chalk
-set background=dark
+" Set themes and niceness
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
+colorscheme base16-chalk
+set t_Co=256
+set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -344,9 +314,8 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" => Text, tab, fold and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
@@ -358,14 +327,13 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
+" Linebreak on 120 characters
 set lbr
-set tw=500
+set tw=120
 
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -376,6 +344,7 @@ vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -384,8 +353,8 @@ map j gj
 map k gk
 
 " Map Space to Open/Close folds
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+" nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+" vnoremap <leader>f za
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><CR> :noh <CR>
@@ -407,7 +376,7 @@ map <leader>bd :Bclose<cr>
 map <leader>m :bn<cr>
 map <leader>n :bp<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -421,6 +390,7 @@ autocmd BufReadPost *
      \ endif
 " Remember info about open buffers on close
 set viminfo^=%
+
 
 
 """"""""""""""""""""""""""""""
@@ -454,7 +424,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -463,7 +433,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -515,3 +485,4 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+"

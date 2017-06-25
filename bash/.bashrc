@@ -11,7 +11,7 @@ esac
 
 #MY CONFIG
 
-PATH=$PATH:~/.scripts/bin/
+# PATH=$PATH:~/.scripts/bin/
 export PAGER=less
 
 
@@ -128,3 +128,12 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-chalk.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 eval $(dircolors -b $HOME/.dircolors)
 bind 'set completion-ignore-case on'
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    export SDKMAN_DIR="/home/joaquin/.sdkman"
+    [[ -s "/home/joaquin/.sdkman/bin/sdkman-init.sh" ]] && source "/home/joaquin/.sdkman/bin/sdkman-init.sh"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    export SDKMAN_DIR="/Users/jlpereyra/.sdkman"
+    [[ -s "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jlpereyra/.sdkman/bin/sdkman-init.sh"
+fi
