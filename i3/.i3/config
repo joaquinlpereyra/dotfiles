@@ -13,15 +13,15 @@
 new_window pixel 2
 hide_edge_borders both
 for_window [class="Gpicview"] border normal
-bindsym Mod1+F1 exec i3-input -P "What should i3 do? "
+bindsym Mod1+F1 exec i3-input -P "What should i3 do? " -F "exec %s"
 bindsym Shift+Mod1+m exec i3-input -P "Mark: " -F "mark %s"
 bindsym Mod1+m exec i3-input -P "Go to mark: " -F '[con_mark="%s"] focus'
 
 # Multimedia Keys
 # increase volume
-bindsym Next exec amixer -q set Master 5%+ unmute
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 # decrease volume
-bindsym End exec amixer -q set Master 5%- unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 
 #FOR CMUS
 bindsym Insert exec cmus-remote --pause
@@ -122,14 +122,19 @@ bindsym Mod1+minus scratchpad show
 workspace_auto_back_and_forth yes
 
 #start dual screen
-# exec xrandr --output VGA-1 --mode 1920x1080
-exec --no-startup-id xfce4-panel --disable-wm-check
+exec xrandr --output eDP-1 --auto --output DP-1 --auto --left-of eDP-1
 exec ~/.dotfiles/wall-randomizer.sh
 exec xmodmap ~/.dotfiles/capstoescape
-
-#STARTUP APPLICATIONS
 exec google-chrome-stable
 exec dropbox
+exec nm-applet
+
+# exchange notify systems
+exec killall -q notify-osd
+exec --no-startup-id dunst -config ~/.i3/config_dunst
+
+# bindsym alt tab to change keyboard layout
+bindsym Alt+Tab exec change-layout
 
 # switch to workspace
 bindsym Mod1+1 workspace number 1
@@ -191,14 +196,13 @@ bindsym Mod1+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-# bar {
-#         status_command i3status
-#         #status_command ~/.i3/statusbar
-# 	position bottom
-# 	tray_output none
-#     mode hide
-#     modifier Mod1
-# }
+bar {
+        status_command i3status
+        position bottom
+        tray_output primary
+        mode hide
+        modifier Mod1
+}
 
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a

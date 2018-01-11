@@ -1,1 +1,1 @@
-/Users/jlpereyra/.dotfiles/vim/.vim
+/home/jlpereyra/.dotfiles/vim/.vim

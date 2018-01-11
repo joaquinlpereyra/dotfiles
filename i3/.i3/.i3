@@ -1,1 +1,1 @@
-/home/joaquin/.dotfiles/i3/.i3
+/home/jlpereyra/.dotfiles/i3/.i3

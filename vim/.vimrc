@@ -56,6 +56,7 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-commentary'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'elzr/vim-json'
 
 
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -295,16 +296,11 @@ if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
 
-colorscheme base16-chalk
-set t_Co=256
-set background=dark
-
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
     set guioptions-=r
-    set t_Co=256
     set guitablabel=%M\ %t
 endif
 

@@ -5,35 +5,44 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Browser
-
+# Default applications
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
-export GOPATH=$GOPATH:~/fury_afip/
-export PATH="$PATH:$HOME/.bin/:$HOME/.npm-global/bin:$GOPATH/bin"
-export GOPATH="$HOME/.go/"
+export TERMINAL='gnome-terminal'
 
-if [[ "$OSTYPE" == darwin* ]]; then
-    export BROWSER='open'
-    export TERM=xterm-256color
-else 
-    export GOPATH="$HOME/.go"
-    export TERMINAL='gnome-terminal'
-    export PATH=$PATH:~/.gem/ruby/2.4.0/bin/ 
-    export PATH=$PATH:~/.cabal/bin/
-    export PATH=$PATH:/usr/local/go/bin
-fi
+# Paths and settings for developing
+#
+## Custom scripts
+export PATH="$PATH:$HOME/.bin"
 
-# Editors
+## Golang
+export GOPATH="$HOME/.go"
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:/usr/local/go/bin"
+
+## Node / JS / NPM
+export NODE_PATH="$HOME/.npm-gobal"
+export PATH="$PATH:$HOME/.npm-global/bin"
+
+## Ruby
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+export PATH="$PATH:~/.gem/ruby/2.4.0/bin/"
+export PATH="$PATH:$HOME/.rvm/bin"
+
+## Haskell / Cabal
+export PATH="$PATH:~/.cabal/bin/"
+
+## Java / Groovy / Grails
+export GRAILS_HOME="$HOME/.grails/grails-2.4.5/"
+export PATH=$PATH:"$GRAILS_HOME/bin"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
 
 # Language
-
 if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
 
-# Paths
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
@@ -49,17 +58,6 @@ path=(
   $path
 )
 
-# Aliases
-if [[ "$OSTYPE" == darwin* ]]; then
-    alias vim="/usr/local/Cellar/vim/8.0.0502/bin/vim" # stupid mac 
-    alias ls='/usr/local/bin/gls --color  -h --group-directories-first -F' # stupid mac 
-    alias vsplit="osascript ~/.dotfiles/iterm/vsplit"
-    alias split="osascript ~/.dotfiles/iterm/split"
-    alias emacs="/usr/local/Cellar/emacs/25.2/Emacs.app/Contents/MacOS/Emacs"
-    alias google-chrome-stable="open -a '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'"
-fi
-
-
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
@@ -73,8 +71,6 @@ fi
 
 #
 # Temporary Files
-#
-
 if [[ ! -d "$TMPDIR" ]]; then
   export TMPDIR="/tmp/$LOGNAME"
   mkdir -p -m 700 "$TMPDIR"
