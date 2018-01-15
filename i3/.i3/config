@@ -19,15 +19,12 @@ bindsym Mod1+m exec i3-input -P "Go to mark: " -F '[con_mark="%s"] focus'
 
 # Multimedia Keys
 # increase volume
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+bindsym Next exec amixer -q set Master 5%+ unmute
 # decrease volume
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
-
-#FOR CMUS
-bindsym Insert exec cmus-remote --pause
+bindsym End exec amixer -q set Master 5%- unmute
 
 # PRINT SCREENSHOTS
-bindsym Print exec scrot -e 'mv $f ~/temp/'
+bindsym Print exec "scrot -u $HOME/temp/scrot_%M-%H-%a-%b-%y.png"
 
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -122,7 +119,7 @@ bindsym Mod1+minus scratchpad show
 workspace_auto_back_and_forth yes
 
 #start dual screen
-exec xrandr --output eDP-1 --auto --output DP-1 --auto --left-of eDP-1
+exec xrandr --output eDP-1 --auto --output HDMI-1-2 --auto --left-of eDP-1
 exec ~/.dotfiles/wall-randomizer.sh
 exec xmodmap ~/.dotfiles/capstoescape
 exec google-chrome-stable
@@ -199,7 +196,7 @@ bindsym Mod1+r mode "resize"
 bar {
         status_command i3status
         position bottom
-        tray_output primary
+        tray_output HDMI-1-2
         mode hide
         modifier Mod1
 }

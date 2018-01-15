@@ -71,6 +71,14 @@ post() {
     fi
 }
 
+ports() {
+    echo "WEB APPS:"
+    echo "Transmission: 9091"
+    echo "Radarr: 7878"
+    echo "Jackett: 9117"
+}
+
+
 ls () {
   if [ -f .hidden ]; then
       command ls --color=auto --group-directories-first --sort=extension -I $(cat .hidden | sed -e "s/\ /\\ -I /g") "$@"
