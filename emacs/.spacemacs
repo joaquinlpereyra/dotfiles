@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     rust
      sql
      (ruby :variables ruby-version-manager 'rvm)
      vimscript
@@ -53,7 +54,9 @@ values."
      git
      (markdown :variables markdown-live-preview-engine 'vmd)
      (haskell :variables haskell-completion-backend 'ghc-mod haskell-enable-hindent-style "johan-tibell")
-     ;; org
+     (org :variables
+          org-enable-github-support t
+          org-enable-bottstrap-support t)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -139,7 +142,6 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          ample-flat
-                         ample
                          spacemacs-dark
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -147,7 +149,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
