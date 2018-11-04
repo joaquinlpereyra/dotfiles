@@ -1,0 +1,17 @@
+config="$HOME/.jackett"
+blackhole="$HOME/videos/movies"
+mkdir -p $blackhole $config > /dev/null 2>&1
+
+docker create --name=jackett \
+    -v $config:/config \
+    -v $blackhole:/downloads \
+    -e PGID=1000 -e PUID=1000 \
+    -v /etc/localtime:/etc/localtime:ro \
+    -p 9117:9117 \
+    linuxserver/jackett
+
+docker start jackett
+mkdir $HOME/.bin > /dev/null 2>&1
+echo "xdg-open http://localhost:9117" > $HOME/.bin/jackett
+chmod +x $HOME/.bin/jackett
+echo "Done! You can now access jackett on :9117."

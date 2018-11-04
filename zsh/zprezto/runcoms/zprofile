@@ -33,6 +33,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 ## Haskell / Cabal
 export PATH="$PATH:~/.cabal/bin/"
 
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 ## Java / Groovy / Grails
 export GRAILS_HOME="$HOME/.grails/grails-2.4.5/"
 export PATH=$PATH:"$GRAILS_HOME/bin"
