@@ -52,6 +52,9 @@ Plugin 'unblevable/quick-scope'
 Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-vinegar'
 
+" Colorscheme
+Plugin 'fxn/vim-monochrome'
+
 " Programming plugins
 Plugin 'tpope/vim-commentary'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -287,14 +290,10 @@ set novisualbell
 " Enable syntax highlighting
 syntax enable
 
+colorscheme monochrome
+
 "Set vertical ruler to 80
 set colorcolumn=80
-
-" Set themes and niceness
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
