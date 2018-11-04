@@ -2,9 +2,6 @@
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# enable cronie
-$(systemctl enable cronie)
-
 #clone and install dependencies
 
 # GNOME TERMINAL COLORS
@@ -36,7 +33,8 @@ echo "Press Ctrl+C to quit now, or Enter to continue"
 read -p ""
 
 #vim
-echo 'symlinking vim config'
+echo 'installing vundle and symlinking vim config'
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ln -sf ${BASEDIR}/vim/.vim ~/.vim
 ln -sf ${BASEDIR}/vim/.vimrc ~/.vimrc
 
@@ -44,12 +42,6 @@ ln -sf ${BASEDIR}/vim/.vimrc ~/.vimrc
 echo 'symlinking i3 config. i need to remove your ~/.i3'
 ln -sf ${BASEDIR}/i3/.i3 ~/.i3
 ln -sf ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
-
-#bash and other utils
-echo 'symlinking bash config'
-ln -sf ${BASEDIR}/bash/.bashrc ~/.bashrc
-ln -sf ${BASEDIR}/bash/.dircolors ~/.dircolors
-ln -sf ${BASEDIR}/bash/.xinitrc ~/.xinitrc
 
 #ranger
 echo 'symlinking ranger config. I need to remove ~/.config/ranger'
