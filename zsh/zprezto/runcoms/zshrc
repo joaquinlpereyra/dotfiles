@@ -71,6 +71,7 @@ post() {
     fi
 }
 
+unalias ls
 ls () {
   if [ -f .hidden ]; then
       command ls --color=auto --group-directories-first --sort=extension -I $(cat .hidden | sed -e "s/\ /\\ -I /g") "$@"
