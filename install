@@ -1,61 +1,107 @@
-#!/bin/bash
+#!/bin/zsh
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-#clone and install dependencies
+echo "Hi! Welcome."
+echo "Plase remember, some things here are not perfect :)"
 
-# GNOME TERMINAL COLORS
-tmpFolder="/tmp/base16-gnome-terminal"
-destFolder="$HOME/.config/base16-gnome-terminal"
-if [[ ! -d "$destFolder" ]]; then
-    git clone https://github.com/chriskempson/base16-gnome-terminal $tmpFolder/
-    mkdir "$destFolder/"
-    mv "$tmpFolder/base16-chalk.dark.sh" "$destFolder/base16-chalk.dark.sh"
-    $(chmod +x $destFolder/base16-chalk.dark.sh)
-    $($destFolder/base16-chalk.dark.sh)
-    rm -rf $tmpFolder/
-else 
-    echo "Looks like you've already got base16-gnome-terminal"
-    echo "If that's not the case, check what's in $destFolder"
+read -q "yn?Continue? [yN]"
+if [[  "$yn" != "y"  ]] ; then
+    echo "Bye!"
+    exit 0
 fi
 
-base16_shell_dir="$HOME/.config/base16-shell"
-if [[ ! -d  "$base16_shell_dir" ]]; then 
-    git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
-    $(chmod +x ~/.config/base16-shell/*)
-else
-    echo "Looks like you've already got base16-shell"
-    echo "If that's not the case, check what's in $base16_shell_dir"
+read -q "yn?Set up xmodmap capstoescape on .profile: [yN]"
+if [[  "$yn" == "y"  ]] ; then
+    echo "xmodmap ${BASEDIR}/capstoescape" >> ${HOME}/.profile
 fi
 
-echo "THIS WILL REMOVE ALL YOUR VIM, BASH, ZSH/ZPREZTO AND RANGER CONFIGS"
-echo "Press Ctrl+C to quit now, or Enter to continue"
-read -p ""
+read -q "yn?Are you on some version of Debian/Ubuntu: [yN]"
+if [[  "$yn" == "y"  ]] ; then
+    echo 'installing some things we will need'
+    sudo apt install git vim emacs25 ranger feh
+fi
 
 #vim
-echo 'installing vundle and symlinking vim config'
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-ln -sf ${BASEDIR}/vim/.vim ~/.vim
-ln -sf ${BASEDIR}/vim/.vimrc ~/.vimrc
+read -q "yn?Configure vim [yN]"
+if [[  "$yn" == "y"  ]] ; then
+    echo 'installing vundle and symlinking vim config'
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    ln -sf ${BASEDIR}/vim/.vim ~/.vim
+    ln -sf ${BASEDIR}/vim/.vimrc ~/.vimrc
+    vim -E -c PluginInstall -c q
+fi
 
-#i3
-echo 'symlinking i3 config. i need to remove your ~/.i3'
-ln -sf ${BASEDIR}/i3/.i3 ~/.i3
-ln -sf ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
-
-#ranger
-echo 'symlinking ranger config. I need to remove ~/.config/ranger'
-ln -sf ${BASEDIR}/ranger/ ~/.config/ranger
+read -q "yn?Configure spacemacs [yN]"
+if [[  "$yn" == "y"  ]] ; then
+    echo 'installing spacemacs and copying config'
+    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+    ln -sf ${BASEDIR}/emacs/.spacemacs ${HOME}/.spacemacs
+fi
 
 #zsh
-echo 'symlinkgin zsh prezto. I need to remove ~/.zprezto'
-ln -sf ${BASEDIR}/zsh/zprezto ~/.zprezto
-setopt EXTENDED_GLOB
-for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-done
+read -q "yn?Configure zprezto: [yN]" 
+if [[ "$yn" == "y" ]] ; then
+    echo 'symlinkgin zsh prezto. I need to remove ~/.zprezto'
+    ln -sf ${BASEDIR}/zsh/zprezto ~/.zprezto
+    setopt EXTENDED_GLOB
+    for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+      ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+    done
+fi
+
+# i3
+read -q "yn?Configure i3: [yN]" 
+if [[ "$yn" == "y" ]] ; then
+    echo 'symlinking i3 config. i need to remove your ~/.i3'
+    ln -sf ${BASEDIR}/i3/.i3 ~/.i3
+    ln -sf ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
+fi
+
+#ranger
+read -q "yn?Configure ranger: [yN]" 
+if [[ "$yn" == "y" ]] ; then
+    echo 'symlinking ranger config. I need to remove ~/.config/ranger'
+    ln -sf ${BASEDIR}/ranger/ ~/.config/ranger
+fi
+
+# GNOME TERMINAL COLORS
+read -q "yn?Install gnome terminal colors: [yN]"
+if [[ "$yn" == "y" ]] ; then
+    tmpFolder="/tmp/base16-gnome-terminal"
+    destFolder="$HOME/.config/base16-gnome-terminal"
+    if [[  ! -d "$destFolder"  ]] ; then
+        git clone https://github.com/chriskempson/base16-gnome-terminal $tmpFolder/
+        mkdir "$destFolder/"
+        mv "$tmpFolder/base16-chalk.dark.sh" "$destFolder/base16-chalk.dark.sh"
+        $(chmod +x $destFolder/base16-chalk.dark.sh)
+        $($destFolder/base16-chalk.dark.sh)
+        rm -rf $tmpFolder/
+    else 
+        echo "Looks like you've already got base16-gnome-terminal"
+        echo "If that's not the case, check what's in $destFolder"
+    fi
+fi
+
+
+read -q "yn?Install base16 shell colors: [yN]" 
+if [[ "$yn" == "y" ]] ; then
+    echo "This is maybe a bit buggy but it kinda should work"
+    base16_shell_dir="$HOME/.config/base16-shell"
+    if [[  ! -d  "$base16_shell_dir"  ]] ; then 
+        git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+        $(chmod +x ~/.config/base16-shell/*)
+        ~/.config/base16-shell/base16_chalk
+    else
+        echo "Looks like you've already got base16-shell"
+        echo "If that's not the case, check what's in $base16_shell_dir"
+    fi
+fi
 
 #wallpapers randomizer
-echo "setting up a random wallpaper from you <3"
-$(chmod +x "$BASEDIR/wall-randomizer.sh")
-$($BASEDIR/wall-randomizer.sh)
+read -q "yn?Set up wallpaper automation with feh: [yN]" yn
+if [[ "$yn" == "y" ]] ; then
+    echo "setting up a random wallpaper from you <3"
+    $(chmod +x "$BASEDIR/wall-randomizer.sh")
+    $($BASEDIR/wall-randomizer.sh)
+fi

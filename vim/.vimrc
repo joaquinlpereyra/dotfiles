@@ -54,6 +54,7 @@ Plugin 'tpope/vim-vinegar'
 
 " Colorscheme
 Plugin 'fxn/vim-monochrome'
+Plugin 'noahfrederick/vim-noctu'
 
 " Programming plugins
 Plugin 'tpope/vim-commentary'
@@ -290,7 +291,7 @@ set novisualbell
 " Enable syntax highlighting
 syntax enable
 
-colorscheme monochrome
+colorscheme noctu
 
 "Set vertical ruler to 80
 set colorcolumn=80
