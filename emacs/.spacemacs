@@ -31,7 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     rust
+     (rust :variables rust-format-on-save t)
      sql
      (ruby :variables ruby-version-manager 'rvm)
      vimscript

@@ -20,7 +20,7 @@ fi
 read -q "yn?Are you on some version of Debian/Ubuntu: [yN]"
 if [[  "$yn" == "y"  ]] ; then
     echo 'installing some things we will need'
-    sudo apt install git vim emacs25 ranger feh
+    sudo apt install git vim emacs25 ranger feh xsel tree
 fi
 
 #vim
