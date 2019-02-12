@@ -142,6 +142,7 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          ample-flat
+                         ample
                          spacemacs-dark
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
