@@ -43,7 +43,7 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec gnome-terminal
+bindsym Mod1+Return exec konsole
 # kill focused window
 bindsym Mod1+Shift+q kill
 
@@ -132,9 +132,6 @@ exec nm-applet
 # exchange notify systems
 exec killall -q notify-osd
 exec --no-startup-id dunst -config ~/.i3/config_dunst
-
-# bindsym alt tab to change keyboard layout
-bindsym Alt+Tab exec change-layout
 
 # switch to workspace
 bindsym Mod1+1 workspace number 1
