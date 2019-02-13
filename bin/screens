@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+if [[ "$1" == "reset" ]]; then
+    xrandr -s 0
+    exit 0
+elif [[ "$1" == "right" ]]; then
+    pos="--right-of"
+else 
+    pos="--left-of"
+fi
+
+if [[ "$2" == "vga" ]]; then
+    screen="DP-1"
+else 
+    screen="HDMI-1"
+fi
+
+
+xrandr --output eDP-1 --auto --output "$screen" --auto "$pos" eDP-1 && ~/.dotfiles/wall-randomizer.sh

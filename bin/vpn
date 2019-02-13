@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+if [[ $1 == "not" ]]; then
+    globalprotect disconnect "${@:2}"
+fi
+
+if [[ $1 == "" ]]; then
+        globalprotect connect --portal portal-antares.adminml.com -u jlpereyra
+fi
+
+if [[ $1 == "log" || $1 == "logs" ]]; then
+    if [[ $2 == "today" ]]; then
+        date=$(date +"%b %d")
+        grep -a --color=never "$date" /opt/paloaltonetworks/globalprotect/PanGPS.log
+    else 
+        cat /opt/paloaltonetworks/globalprotect/PanGPS.log
+    fi
+
+fi
+
+if [[ $1 == "status" ]]; then
+    systemctl status gpd | grep --color=never "Active"
+    globalprotect show --status
+fi
+
+if [[ $1 == "die" ]]; then 
+    sudo $HOME/.vpn/uninstall.sh 
+    echo 'uninstalled. sleeping...'
+    sleep 7 
+    echo 'installing...'
+    sudo $HOME/.vpn/install.sh
+    globalprotect connect --portal portal-antares.mercadolibre.com -u jlpereyra
+fi

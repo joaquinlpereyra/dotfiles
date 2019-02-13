@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# divide by one so float is an int when going to the file :)
+echo "($1*9.37)/1" | bc >> /sys/class/backlight/intel_backlight/brightness
