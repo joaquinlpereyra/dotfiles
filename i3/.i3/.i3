@@ -1,1 +1,0 @@
-/home/jlpereyra/.dotfiles/i3/.i3

@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/home/jlpereyra/.go/src/private/aleman/internal'
 let g:netrw_dirhist_2='/home/joaquin/.config/terminator'
 let g:netrw_dirhist_3='/home/joaquin/.dotfiles'
+let g:netrw_dirhist_4='/home/joaquin/.dotfiles/i3/.i3'
