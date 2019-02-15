@@ -5,26 +5,26 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "Hi! Welcome."
 echo "Plase remember, some things here are not perfect :)"
 
-read -q "yn?Continue? [yN]"
+read -q "yn?Continue? [yN]\n"
 if [[  "$yn" != "y"  ]] ; then
     echo "Bye!"
     exit 0
 fi
 
-read -q "yn?Set up xmodmap capstoescape on .profile: [yN]"
+read -q "yn?Set up xmodmap capstoescape on .profile: [yN]\n"
 if [[  "$yn" == "y"  ]] ; then
     echo "xmodmap ${BASEDIR}/capstoescape" >> ${HOME}/.profile
     echo "xmodmap ${BASEDIR}/capstoescape" >> ${HOME}/.zprofile
 fi
 
-read -q "yn?Are you on some version of Debian/Ubuntu: [yN]"
+read -q "yn?Are you on some version of Debian/Ubuntu: [yN]\n"
 if [[  "$yn" == "y"  ]] ; then
     echo 'installing some things we will need'
     sudo apt install git vim emacs25 ranger feh xsel tree
 fi
 
 #vim
-read -q "yn?Configure vim [yN]"
+read -q "yn?Configure vim [yN]\n"
 if [[  "$yn" == "y"  ]] ; then
     echo 'installing vundle and symlinking vim config'
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -33,7 +33,7 @@ if [[  "$yn" == "y"  ]] ; then
     vim -E -c PluginInstall -c q
 fi
 
-read -q "yn?Configure spacemacs [yN]"
+read -q "yn?Configure spacemacs [yN]\n"
 if [[  "$yn" == "y"  ]] ; then
     echo 'installing spacemacs and copying config'
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -41,7 +41,7 @@ if [[  "$yn" == "y"  ]] ; then
 fi
 
 #zsh
-read -q "yn?Configure zprezto: [yN]" 
+read -q "yn?Configure zprezto: [yN]\n" 
 if [[ "$yn" == "y" ]] ; then
     echo 'symlinkgin zsh prezto. I need to remove ~/.zprezto'
     ln -sf ${BASEDIR}/zsh/zprezto ~/.zprezto
@@ -52,7 +52,7 @@ if [[ "$yn" == "y" ]] ; then
 fi
 
 # i3
-read -q "yn?Configure i3: [yN]" 
+read -q "yn?Configure i3: [yN]\n" 
 if [[ "$yn" == "y" ]] ; then
     echo 'symlinking i3 config. i need to remove your ~/.i3'
     ln -sf ${BASEDIR}/i3/.i3 ~/.i3
@@ -60,14 +60,14 @@ if [[ "$yn" == "y" ]] ; then
 fi
 
 #ranger
-read -q "yn?Configure ranger: [yN]" 
+read -q "yn?Configure ranger: [yN]\n" 
 if [[ "$yn" == "y" ]] ; then
     echo 'symlinking ranger config. I need to remove ~/.config/ranger'
     ln -sf ${BASEDIR}/ranger/ ~/.config/ranger
 fi
 
 # GNOME TERMINAL COLORS
-read -q "yn?Install gnome terminal colors: [yN]"
+read -q "yn?Install gnome terminal colors: [yN]\n"
 if [[ "$yn" == "y" ]] ; then
     tmpFolder="/tmp/base16-gnome-terminal"
     destFolder="$HOME/.config/base16-gnome-terminal"
@@ -85,7 +85,7 @@ if [[ "$yn" == "y" ]] ; then
 fi
 
 
-read -q "yn?Install base16 shell colors: [yN]" 
+read -q "yn?Install base16 shell colors: [yN]\n" 
 if [[ "$yn" == "y" ]] ; then
     echo "This is maybe a bit buggy but it kinda should work"
     base16_shell_dir="$HOME/.config/base16-shell"
@@ -100,7 +100,7 @@ if [[ "$yn" == "y" ]] ; then
 fi
 
 #wallpapers randomizer
-read -q "yn?Set up wallpaper automation with feh: [yN]" yn
+read -q "yn?Set up wallpaper automation with feh: [yN]\n" yn
 if [[ "$yn" == "y" ]] ; then
     echo "setting up a random wallpaper from you <3"
     $(chmod +x "$BASEDIR/wall-randomizer.sh")
