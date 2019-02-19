@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-i3lock -c 000000
+i3lock -t -c 000000 -i "$(find "$HOME"/.dotfiles/wallpapers -maxdepth 1 -type f ! -name ".*" | shuf -n 1)"
