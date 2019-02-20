@@ -10,8 +10,8 @@
 #
 
 # MY CONFIG ---- MY CONFIG ---- MY CONFIG ---
-new_window pixel 2
-hide_edge_borders both
+new_window pixel 3
+# hide_edge_borders both
 for_window [class="Gpicview"] border normal
 bindsym Mod1+F1 exec i3-input -P "What should i3 do? " -F "exec %s"
 bindsym Shift+Mod1+m exec i3-input -P "Mark: " -F "mark %s"
@@ -37,7 +37,7 @@ bindsym Print exec scrot -e 'mv $f ~/temp/'
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-font pango:Ubuntu 14
+font pango:Ubuntu 10
 
 # use Mouse+Mod1 to drag floating windows to their wanted position
 floating_modifier Mod1

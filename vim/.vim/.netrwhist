@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/jlpereyra/.go/src/private/aleman/internal'
 let g:netrw_dirhist_2='/home/joaquin/.config/terminator'
 let g:netrw_dirhist_3='/home/joaquin/.dotfiles'
+let g:netrw_dirhist_4='/home/jlpereyra'
+let g:netrw_dirhist_5='/home/jlpereyra/grive/AFIP/presentacion-george-febrero-2019'

@@ -60,7 +60,7 @@ Plugin 'noahfrederick/vim-noctu'
 Plugin 'tpope/vim-commentary'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'elzr/vim-json'
+" Plugin 'elzr/vim-json'
 
 
 " plugin from http://vim-scripts.org/vim/scripts.html
