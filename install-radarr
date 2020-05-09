@@ -1,0 +1,21 @@
+#!/bin/zsh
+
+mkidr /home/joaquin/.torrent
+mkdir /home/joaquin/.torrent/radarr
+mkdir /home/joaquin/.torrent/radarr/config
+mkdir /home/joaquin/videos/
+mkdir /home/joaquin/videos/movies
+mkdir /home/joaquin/downloads
+
+docker create \
+--name=radarr \
+-e PUID=1000 \
+-e PGID=1000 \
+-e TZ=America/Buenos_Aires \
+-p 7878:7878 \
+--network="host" \
+-v /home/joaquin/.torrent/radarr/config:/config \
+-v /home/joaquin/videos/movies:/movies \
+-v /home/joaquin/downloads:/downloads \
+--restart unless-stopped \
+ linuxserver/radarr

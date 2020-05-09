@@ -10,22 +10,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Functions
-open_all_python() {
-    # Search all python non-dunder files. If any is found, open them in vim
-    if [[ -n "$1" && -d "$1" ]]; then
-        dir=$1
-        args=$2
-    else
-        dir="."
-        args="$1"
-    fi
-
-    py_files=($dir/[^__]*.py(N))
-    if [[ -n "$py_files" ]]; then
-        vim $py_files $args
-    fi
-}
+unsetopt nopromptsp # who thinks it is a good idea to enable this?
 
 alarm() {
     time_=$1
@@ -46,47 +31,16 @@ alarm() {
     (sleep "$time_" && echo "$alarm_prompt" && aplay -q "$sound" -d 2) & disown
 }
 
-post() {
-    shortdate=$(date "+%Y-%m-%d")
-    date=$(date "+%Y-%m-%d %H:%M:%S")
-    title=$1
-    title_mod=${1// /-}
-    title_mod=${title_mod//,/}
-    categories=${2//,/ }
-    post_path="$HOME/blogcito/_posts/$shortdate-$title_mod.md"
-    if [[ ! -f $post_path ]]; then
-        string="---\nlayout: post\ntitle: $title\ndate: $date\ncategories: $categories\n---"
-        touch "$post_path"
-        echo "$string" >> "$post_path"
-    fi
-
-    vim $post_path
-
-    printf "Upload post? [N/y]: "
-    read ans
-    if [[ "$ans" == "y" ]]; then
-        git add $post_path
-        git commit -m "created post $title"
-        git push origin master
-    fi
-}
-
-unalias ls
-ls () {
-  if [ -f .hidden ]; then
-      command ls --color=auto --group-directories-first --sort=extension -I $(cat .hidden | sed -e "s/\ /\\ -I /g") "$@"
-      return
-  fi
-  command ls --color=auto --group-directories-first --sort=extension "$@"
-}
-
 cover () { 
     t="/tmp/go-cover.$$.tmp"
     go test -coverprofile=$t.out $@ && go tool cover -html=$t.out && unlink $t.out
 }
 
+
 # Aliases (General)
-alias vimpy=open_all_python
+unalias ls
+
+alias ls='ls --color=auto --group-directories-first --sort=extension'
 
 # Aliases (Docker)
 dbash() { docker exec -it $(docker ps -aqf name="$1") bash; }
@@ -95,13 +49,10 @@ alias dl="docker ps -l -q"
 alias dexec="docker exec -it $(dl) "
 
 
-alias cat='ccat'
 alias c='xsel -ib'
 alias scrot='scrot ~/temp/scrot_%M-%H-%a-%b-%y.png'
 
 
-eval $(dircolors -b $HOME/.dircolors)
-test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 
@@ -113,6 +64,3 @@ unalias rm # cause Prezto think its a good idea to use rm -i by default
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"

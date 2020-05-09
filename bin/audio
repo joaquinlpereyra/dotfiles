@@ -1,0 +1,21 @@
+#!/bin/bash 
+
+TARGET=$1
+PC_CARD="alsa_card.pci-0000_00_1f.3"
+PC_MODE="output:analog-stereo+input:analog-stereo"
+PC_SINK="alsa_output.pci-0000_00_1f.3.analog-stereo"
+HDMI_CARD="alsa_card.pci-0000_01_00.1"
+HDMI_MODE="output:hdmi-stereo"
+
+CONTROLLER_CARD="alsa_card.usb-Sony_Interactive_Entertainment_Wireless_Controller-00" 
+pacmd set-card-profile $CONTROLLER_CARD off || true
+
+if [[ $TARGET == "sp" ]]; then
+    pacmd set-card-profile $PC_CARD off
+    pacmd set-card-profile $HDMI_CARD $HDMI_MODE
+elif [[ $TARGET == "hp" ]]; then
+    pacmd set-card-profile $HDMI_CARD off
+    pacmd set-card-profile $PC_CARD $PC_MODE
+    sleep 1
+    pacmd set-sink-port $PC_SINK analog-output-headphones
+fi

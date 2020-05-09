@@ -12,11 +12,15 @@ fi
 if [[ "$2" == "vga" ]]; then
     secondaryScreen="DP-1"
 elif [[ -z "$IS_HOME" ]]; then
-    secondaryScreen="HDMI-1"
+    secondaryScreen="HDMI-0"
 else
     secondaryScreen="HDMI-1-2"
 fi
 
-mainScreen="eDP-1"
+if [[ -z "$IS_HOME" ]]; then
+    mainScreen="DP-4"
+else 
+    mainScreen="eDP-1"
+fi
 
 xrandr --output "$mainScreen" --auto --output "$secondaryScreen" --auto "$pos" "$mainScreen" && ~/.dotfiles/wall-randomizer.sh

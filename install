@@ -20,7 +20,7 @@ fi
 read -q "yn?Are you on some version of Debian/Ubuntu: [yN]\n"
 if [[  "$yn" == "y"  ]] ; then
     echo 'installing some things we will need'
-    sudo apt install git vim emacs25 ranger feh xsel tree
+    sudo apt install git vim-gtk3 emacs25 feh xsel tree curl nmap
 fi
 
 #vim
@@ -57,13 +57,6 @@ if [[ "$yn" == "y" ]] ; then
     echo 'symlinking i3 config. i need to remove your ~/.i3'
     ln -sf ${BASEDIR}/i3/.i3 ~/.i3
     ln -sf ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
-fi
-
-#ranger
-read -q "yn?Configure ranger: [yN]\n" 
-if [[ "$yn" == "y" ]] ; then
-    echo 'symlinking ranger config. I need to remove ~/.config/ranger'
-    ln -sf ${BASEDIR}/ranger/ ~/.config/ranger
 fi
 
 # GNOME TERMINAL COLORS

@@ -43,7 +43,7 @@ font pango:Ubuntu 10
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec gnome-terminal
+    bindsym Mod1+Return exec alacritty
 # kill focused window
 bindsym Mod1+Shift+q kill
 
@@ -118,9 +118,7 @@ workspace_auto_back_and_forth yes
 exec xrandr --output eDP-1 --auto --output HDMI-1-2 --auto --left-of eDP-1
 exec ~/.dotfiles/wall-randomizer.sh
 exec xmodmap ~/.dotfiles/capstoescape
-exec firefox
-exec dropbox
-exec nm-applet
+exec chromium-browser
 
 # exchange notify systems
 exec killall -q notify-osd
@@ -189,7 +187,7 @@ bindsym Mod1+r mode "resize"
 bar {
         status_command i3status
         position bottom
-        tray_output primary
+        # tray_output primary
         mode hide
         modifier Mod1
 }
