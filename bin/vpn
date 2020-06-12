@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# A script to connect to MELI's VPN. 
+# Leaving here as may need to use globalprotect again at some point in my life.
+
 if [[ $1 == "not" ]]; then
     globalprotect disconnect "${@:2}"
 fi

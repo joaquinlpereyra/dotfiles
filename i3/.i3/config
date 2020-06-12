@@ -23,9 +23,6 @@ bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 # decrease volume
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 
-#FOR CMUS
-bindsym Insert exec cmus-remote --pause
-
 # PRINT SCREENSHOTS
 bindsym Print exec scrot -e 'mv $f ~/temp/'
 
@@ -43,7 +40,7 @@ font pango:Ubuntu 10
 floating_modifier Mod1
 
 # start a terminal
-    bindsym Mod1+Return exec alacritty
+bindsym Mod1+Return exec alacritty
 # kill focused window
 bindsym Mod1+Shift+q kill
 
@@ -115,14 +112,14 @@ bindsym Mod1+minus scratchpad show
 workspace_auto_back_and_forth yes
 
 #start dual screen
-exec xrandr --output eDP-1 --auto --output HDMI-1-2 --auto --left-of eDP-1
-exec ~/.dotfiles/wall-randomizer.sh
-exec xmodmap ~/.dotfiles/capstoescape
-exec chromium-browser
+# exec xrandr --output eDP-1 --auto --output HDMI-1-2 --auto --left-of eDP-1
+exec $HOME/.dotfiles/wall-randomizer.sh
+exec xmodmap $HOME/.dotfiles/capstoescape
+exec google-chrome
 
 # exchange notify systems
 exec killall -q notify-osd
-exec --no-startup-id dunst -config ~/.i3/config_dunst
+exec --no-startup-id dunst -config $HOME/.config/i3/config_dunst
 
 # switch to workspace
 bindsym Mod1+1 workspace number 1

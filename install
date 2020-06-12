@@ -5,35 +5,41 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "Hi! Welcome."
 echo "Plase remember, some things here are not perfect :)"
 
-read -q "yn?Continue? [yN]\n"
+read "yn?Continue? [yN]"
 if [[  "$yn" != "y"  ]] ; then
     echo "Bye!"
     exit 0
 fi
 
-read -q "yn?Set up xmodmap capstoescape on .profile: [yN]\n"
+read "yn?Set up xmodmap capstoescape on .profile: [yN] \n"
 if [[  "$yn" == "y"  ]] ; then
     echo "xmodmap ${BASEDIR}/capstoescape" >> ${HOME}/.profile
     echo "xmodmap ${BASEDIR}/capstoescape" >> ${HOME}/.zprofile
 fi
 
-read -q "yn?Are you on some version of Debian/Ubuntu: [yN]\n"
+read "yn?Are you on some version of Debian/Ubuntu: [yN]\n"
 if [[  "$yn" == "y"  ]] ; then
     echo 'installing some things we will need'
-    sudo apt install git vim-gtk3 emacs25 feh xsel tree curl nmap
+    sudo apt install curl
+    curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo add-apt-repository ppa:mmstick76/alacritty
+    sudo apt update
+    sudo apt install git vim-gtk3 emacs feh xsel tree nmap spotify-client alacritty
 fi
 
 #vim
-read -q "yn?Configure vim [yN]\n"
+read "yn?Configure vim [yN]\n"
 if [[  "$yn" == "y"  ]] ; then
     echo 'installing vundle and symlinking vim config'
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     ln -sf ${BASEDIR}/vim/.vim ~/.vim
     ln -sf ${BASEDIR}/vim/.vimrc ~/.vimrc
     vim -E -c PluginInstall -c q
+    mkdir $HOME/.swp-folder
 fi
 
-read -q "yn?Configure spacemacs [yN]\n"
+read "yn?Configure spacemacs [yN]\n"
 if [[  "$yn" == "y"  ]] ; then
     echo 'installing spacemacs and copying config'
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -41,7 +47,7 @@ if [[  "$yn" == "y"  ]] ; then
 fi
 
 #zsh
-read -q "yn?Configure zprezto: [yN]\n" 
+read "yn?Configure zprezto: [yN]\n" 
 if [[ "$yn" == "y" ]] ; then
     echo 'symlinkgin zsh prezto. I need to remove ~/.zprezto'
     ln -sf ${BASEDIR}/zsh/zprezto ~/.zprezto
@@ -52,40 +58,22 @@ if [[ "$yn" == "y" ]] ; then
 fi
 
 # i3
-read -q "yn?Configure i3: [yN]\n" 
+read "yn?Configure i3: [yN]\n" 
 if [[ "$yn" == "y" ]] ; then
     echo 'symlinking i3 config. i need to remove your ~/.i3'
-    ln -sf ${BASEDIR}/i3/.i3 ~/.i3
-    ln -sf ${BASEDIR}/i3/.i3status.conf ~/.i3status.conf
+    ln -sf ${BASEDIR}/i3/.i3 $HOME/.config/i3/config
+    ln -sf ${BASEDIR}/i3/.i3/statusbar $HOME/.config/i3/statusbar
+    ln -sf ${BASEDIR}/i3/.i3status.conf $HOME/.config/i3/i3status.conf
 fi
 
-# GNOME TERMINAL COLORS
-read -q "yn?Install gnome terminal colors: [yN]\n"
-if [[ "$yn" == "y" ]] ; then
-    tmpFolder="/tmp/base16-gnome-terminal"
-    destFolder="$HOME/.config/base16-gnome-terminal"
-    if [[  ! -d "$destFolder"  ]] ; then
-        git clone https://github.com/chriskempson/base16-gnome-terminal $tmpFolder/
-        mkdir "$destFolder/"
-        mv "$tmpFolder/base16-chalk.dark.sh" "$destFolder/base16-chalk.dark.sh"
-        $(chmod +x $destFolder/base16-chalk.dark.sh)
-        $($destFolder/base16-chalk.dark.sh)
-        rm -rf $tmpFolder/
-    else 
-        echo "Looks like you've already got base16-gnome-terminal"
-        echo "If that's not the case, check what's in $destFolder"
-    fi
-fi
-
-
-read -q "yn?Install base16 shell colors: [yN]\n" 
+read "yn?Install base16 shell colors: [yN]\n" 
 if [[ "$yn" == "y" ]] ; then
     echo "This is maybe a bit buggy but it kinda should work"
     base16_shell_dir="$HOME/.config/base16-shell"
     if [[  ! -d  "$base16_shell_dir"  ]] ; then 
-        git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
-        $(chmod +x ~/.config/base16-shell/*)
-        ~/.config/base16-shell/base16_chalk
+        git clone https://github.com/chriskempson/base16-shell.git $HOME/.config/base16-shell
+        $(chmod +x $HOME/.config/base16-shell/*)
+        $HOME/.config/base16-shell/base16_chalk
     else
         echo "Looks like you've already got base16-shell"
         echo "If that's not the case, check what's in $base16_shell_dir"
@@ -93,7 +81,7 @@ if [[ "$yn" == "y" ]] ; then
 fi
 
 #wallpapers randomizer
-read -q "yn?Set up wallpaper automation with feh: [yN]\n" yn
+read "yn?Set up wallpaper automation with feh: [yN]\n" yn
 if [[ "$yn" == "y" ]] ; then
     echo "setting up a random wallpaper from you <3"
     $(chmod +x "$BASEDIR/wall-randomizer.sh")

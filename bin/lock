@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
+
+# Use i3 lock to lock your computer.
+
 i3lock -t -c 000000 -i "$(find "$HOME"/.dotfiles/wallpapers -maxdepth 1 -type f ! -name ".*" | shuf -n 1)" 
 $HOME/.dotfiles/wall-randomizer.sh

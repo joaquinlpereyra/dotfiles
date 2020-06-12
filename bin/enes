@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Change the layout of your keyboard.
+
 current_layout=$(setxkbmap -query | grep layout | awk '{ print $2; }')
 if [ $current_layout == "us" ]
 	then
