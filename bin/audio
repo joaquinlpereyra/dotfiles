@@ -10,6 +10,7 @@ HDMI_MODE="output:hdmi-stereo-extra2"
 CONTROLLER_CARD="alsa_card.usb-Sony_Interactive_Entertainment_Wireless_Controller-00" 
 pacmd set-card-profile $CONTROLLER_CARD off || true
 
+
 if [[ $TARGET == "sp" ]]; then
     pacmd set-card-profile $PC_CARD off
     pacmd set-card-profile $HDMI_CARD $HDMI_MODE
@@ -18,4 +19,8 @@ elif [[ $TARGET == "hp" ]]; then
     pacmd set-card-profile $PC_CARD $PC_MODE
     sleep 1
     pacmd set-sink-port $PC_SINK analog-output-headphones
+elif [[ $TARGET == "kill" ]]; then
+    # fix for sometimes HDMI audio not available?
+    pulseaudio -k && sudo alsa force-reload
 fi
+
