@@ -10,6 +10,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
 
+export IS_HOME=true
 
 # Editors
 export EDITOR='vim'
@@ -33,29 +34,27 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 ## Golang
-GOPATH="$HOME/.go"
-PATH="$PATH:$GOPATH/bin"
-PATH="$PATH:/usr/local/go/bin"
+export GOPATH="$HOME/.go"
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:/usr/local/go/bin"
 
 ## Node / JS / NPM
 NODE_PATH="$HOME/.npm-gobal"
-PATH="$PATH:$HOME/.npm-global/bin"
+export PATH="$PATH:$HOME/.npm-global/bin"
 
 ## Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-PATH="$PATH:~/.gem/ruby/2.4.0/bin/"
-PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:~/.gem/ruby/2.4.0/bin/"
+export PATH="$PATH:$HOME/.rvm/bin"
 
 ## Haskell / Cabal
-PATH="$PATH:~/.cabal/bin/"
+export PATH="$PATH:~/.cabal/bin/"
 
 # Rust
-PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 ## Java / Groovy / Grails
-GRAILS_HOME="$HOME/.grails/grails-2.4.5/"
-PATH=$PATH:"$GRAILS_HOME/bin"
-JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path

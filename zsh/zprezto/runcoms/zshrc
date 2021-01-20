@@ -14,6 +14,14 @@ fi
 alias c='xsel -ib'
 alias scrot='scrot ~/temp/scrot_%M-%H-%a-%b-%y.png'
 
+function cargo {
+    if [[ $1 == "test" && $2 == "--no-warn-dead_code" ]]; then
+        RUSTFLAGS="$RUSTFLAGS -A dead_code" cargo test
+    else 
+        command cargo $@
+    fi
+}
+
 # BASE16 Shell initialization. Nice colors.
 BASE16_SHELL="$HOME/.config/base16-shell/"
 if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ]; then
@@ -31,4 +39,3 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# Customize to your needs...
