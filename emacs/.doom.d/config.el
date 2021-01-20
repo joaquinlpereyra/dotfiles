@@ -42,6 +42,8 @@
       "TAB" (kbd "SPC b b RET")
       )
 
+(add-hook! go-mode #'lsp-organize-imports)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -58,6 +60,11 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
+(custom-set-faces!
+        '(lsp-face-highlight-read :weight bold)
+        '(lsp-face-highlight-textual :weight bold)
+        '(lsp-face-highlight-write :weight bold)
+ )
 (setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
