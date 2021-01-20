@@ -27,16 +27,21 @@ fi
 #
 # Paths
 #
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
 fi
+export PATH="$PATH:$HOME/.bin"
 
 ## Golang
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:/usr/local/go/bin"
+
+## Python on MacOS
+export PATH="$PATH:/Users/joaquin.pereyra/Library/Python/3.7/bin"
+export PATH="$PATH:/Users/joaquin.pereyra/Library/Python/2.7/bin"
+export PATH="$PATH:$HOME/.pyenv/bin:"
 
 ## Node / JS / NPM
 NODE_PATH="$HOME/.npm-gobal"
@@ -54,7 +59,13 @@ export PATH="$PATH:~/.cabal/bin/"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 ## Java / Groovy / Grails
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
+export GRAILS_HOME="$HOME/.grails/grails-2.4.5/"
+export PATH=$PATH:"$GRAILS_HOME/bin"
+export JAVA_HOME="/usr/local/opt/openjdk"
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+## AWS
+AWS_MFA='arn:aws:iam::797740695898:mfa/joaquin.pereyra'
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
@@ -84,3 +95,14 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+#
+# Temporary Files
+if [[ ! -d "$TMPDIR" ]]; then
+  export TMPDIR="/tmp/$LOGNAME"
+  mkdir -p -m 700 "$TMPDIR"
+fi
+
+TMPPREFIX="${TMPDIR%/}/zsh"
+
+export PATH="$HOME/.poetry/bin:$PATH"

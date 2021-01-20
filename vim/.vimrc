@@ -40,27 +40,16 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 
 " General Plugins
-Plugin 'chriskempson/base16-vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
-Bundle 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'mbbill/undotree'
-Plugin 'unblevable/quick-scope'
-Plugin 'justinmk/vim-sneak'
-Plugin 'tpope/vim-vinegar'
+
 
 " Colorscheme
 Plugin 'fxn/vim-monochrome'
-Plugin 'noahfrederick/vim-noctu'
+Plugin 'itchyny/lightline.vim'
 
 " Programming plugins
-Plugin 'tpope/vim-commentary'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'majutsushi/tagbar'
-" Plugin 'elzr/vim-json'
+Plugin 'elzr/vim-json'
 
 
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -98,20 +87,6 @@ let g:mapleader = "\<Space>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP
-let g:ctrlp_cmd = 'CtrlPMixed'
-nmap <leader>o :CtrlP<cr>
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-
-" tagbars
-nmap <F4> :TagbarToggle<cr>
-let g:tagbar_sort = 0
-let g:tagbar_autoshowtag = 1
-
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
@@ -137,16 +112,8 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
-" Gists
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_post_private = 1
-
-" vim-airline
-" let g:airline_section_x = '%{TagInStatusLine()}'
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#syntastic#enabled = 0
-
+" disable hiding double quotes in JSON
+let g:vim_json_syntax_conceal = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -189,29 +156,6 @@ command W w
 " remaps to change english-centric keyboard binding to spanish-centric ones
 nnoremap , ;
 nnoremap ; ,
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Only when writing prose
-
-augroup lexical
-  autocmd!
-  autocmd FileType markdown,mkd call lexical#init()
-  autocmd FileType textile call lexical#init()
-  autocmd FileType text call lexical#init({ 'spell': 0 })
-
-  let g:lexical#thesaurus = ['~/.dotfiles/vim/words.txt',]
-  let g:lexical#spellfile = ['~/.dotfiles/vim/en.utf-8.add',]
-  let g:lexical#spell_key = '<leader>s'
-  let g:lexical#thesaurus_key = '<leader>t'
-  let g:lexical#dictionary_key = 'jleader>k'
-augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Python specific
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" remap <leader>i to insert at previous line import ipdb; ipdb.set_trace()
-nnoremap <silent> <leader>i :normal Oimport ipdb; ipdb.set_trace()<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -280,7 +224,6 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
-
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
@@ -291,7 +234,10 @@ set novisualbell
 " Enable syntax highlighting
 syntax enable
 
-colorscheme noctu
+set t_Co=256
+let g:lightline = {'colorscheme': 'Tomorrow_Night'}
+colorscheme monochrome
+
 
 "Set vertical ruler to 80
 set colorcolumn=80
@@ -309,6 +255,7 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+ 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab, fold and indent related
@@ -375,7 +322,7 @@ map <leader>n :bp<cr>
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
-  set stal=2
+  set showtabline=1
 catch
 endtry
 
