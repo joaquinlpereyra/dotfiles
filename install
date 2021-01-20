@@ -39,11 +39,14 @@ if [[  "$yn" == "y"  ]] ; then
     mkdir $HOME/.swp-folder
 fi
 
-read "yn?Configure spacemacs [yN]"
+read "yn?Configure doom emacs [yN]"
 if [[  "$yn" == "y"  ]] ; then
-    echo 'installing spacemacs and copying config'
-    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-    ln -sf ${BASEDIR}/emacs/.spacemacs ${HOME}/.spacemacs
+    echo 'installing doom emacs and copying config'
+    git clone --depth 1 https://github.com/hlissner/doom-emacs $HOME/.emacs.d
+    ln -sf ${BASEDIR}/emacs/.doom.d/ ${HOME}/.doom.d
+    chmod +x $HOME/bin/doom
+    ${BASEDIR}/emacs/.emacs.d/bin/doom sync
+    ${BASEDIR}/emacs/.emacs.d/bin/doom doctor
 fi
 
 #zsh
