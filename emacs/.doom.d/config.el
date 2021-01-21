@@ -60,12 +60,13 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
+(setq doom-theme 'doom-tomorrow-night)
+
+;; Remove the ugly highlighting of the word under cursor and replace for a subtle
+;; bold effect
 (custom-set-faces!
-        '(lsp-face-highlight-read :weight bold)
-        '(lsp-face-highlight-textual :weight bold)
-        '(lsp-face-highlight-write :weight bold)
- )
-(setq doom-theme 'doom-one)
+  '((lsp-face-highlight-read lsp-face-highlight-textual lsp-face-highlight-write)
+    :weight bold :foreground unspecified :background unspecified))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
